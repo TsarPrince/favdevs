@@ -1,0 +1,75 @@
+---
+import Container from "./container.astro";
+import Sectionhead from "./sectionhead.astro";
+import { ArrowIcon } from "./ui/icons";
+
+const faq = [
+  {
+    question: "How long does it take for your SEO services to see results?",
+    answer:
+      "Depending on your industry, site age and competition, It can take anywhere from 3 to 8 months to see results.",
+  },
+  {
+    question: "Does my business need SEO?",
+    answer:
+      "Yes, your business should be investing in SEO. Search engine optimization offers a way to increase traffic.",
+  },
+  {
+    question: "How much does SEO cost?",
+    answer:
+      "The cost of SEO services can vary depending on the size and complexity of your website, the amount of required.",
+  },
+  {
+    question: "Why isn't my website ranking on Google?",
+    answer:
+      "If your website isn’t ranking on Google, there are a few reasons why that could be. But first, head to Google.",
+  },
+  {
+    question:
+      "How can I find the keywords that people are searching for to find businesses like mine?",
+    answer:
+      "You can do this using Google's keyword planner or the flowto keyword magic tool.",
+  },
+  {
+    question: "How much does SEO cost?",
+    answer:
+      "The cost of SEO services can vary depending on the size and complexity of your website, the amount of required.",
+  },
+  {
+    question: "Why has my organic traffic dropped?",
+    answer:
+      "You need to determine whether your website's organic traffic has dropped suddenly or gradually over time.",
+  },
+];
+---
+
+<Container>
+  <Sectionhead>
+    <Fragment slot="title">Frequently asked questions about SEO</Fragment>
+    <Fragment slot="desc">
+      To some people, SEO sounds like black magic! Actually, it doesn’t! What we
+      do for you is to help your audience find the information relevant to their
+      question.
+    </Fragment>
+  </Sectionhead>
+
+  <div class="grid divide-y divide-neutral-200 max-w-xl mx-auto mt-8">
+    {
+      faq.map((item) => (
+        <div class="py-5">
+          <details class="group">
+            <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
+              <span> {item.question}</span>
+              <span class="transition group-open:rotate-180">
+                <ArrowIcon />
+              </span>
+            </summary>
+            <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
+              {item.answer}
+            </p>
+          </details>
+        </div>
+      ))
+    }
+  </div>
+</Container>

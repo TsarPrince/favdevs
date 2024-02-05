@@ -1,0 +1,79 @@
+---
+// @ts-ignore
+import Badge from "@components/ui/badge.astro";
+import { Icon } from "astro-icon/components";
+
+const features = [
+  {
+    title: "Expert SEO packages",
+    description:
+      "Most search engine optimization services aim to fill your sales channel with relevant.",
+    icon: "fluent:document-javascript-24-regular",
+  },
+  {
+    title: "Web analytics & consulting",
+    description:
+      "Any business that has a website or online presence must needs good web analytics.",
+    icon: "fluent:trophy-24-regular",
+  },
+  {
+    title: "SEO website audit services",
+    description:
+      "Today, no business can survive without a proper SEO strategy, having website audit.",
+    icon: "fluent:box-24-regular",
+  },
+  {
+    title: "SEO services for startups",
+    description:
+      "We have years of experience pushing new businesses through SEO channels easily.",
+    icon: "fluent:box-multiple-24-regular",
+  },
+  {
+    title: "PPC marketing services",
+    description:
+      "PPC is a method of online advertising. It's done through multiple platforms including.",
+    icon: "fluent:book-search-24-regular",
+  },
+  {
+    title: "Digital marketing plan",
+    description:
+      "Improve your presence, and create trust in the eyes of your customers with digitally.",
+    icon: "fluent:people-community-24-regular",
+  },
+];
+---
+
+<!-- <div class="mt-16">
+  <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight">
+    We have got more awesome <span class="text-indigo-600">features</span>
+  </h2>
+  <p class="text-lg mt-4 text-slate-600">
+    Use this section to highlight not so important features of your product.
+  </p>
+</div> -->
+<div class="mt-24 max-w-3xl mx-auto flex flex-col items-center justify-center">
+  <!-- <Badge color="purple">MORE FEATURES</Badge> -->
+  <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-4 text-center">
+    Advanced SEO services to boost your brand
+  </h2>
+  <p class="text-lg mt-4 text-slate-600 text-center [text-wrap:pretty]">
+    Discovered our customized SEO services & you can double, triple or quadruple
+    your sales & income. Beat your competition with professional SEO services!
+  </p>
+</div>
+
+<div class="grid sm:grid-cols-2 md:grid-cols-3 mt-16 gap-8 md:gap-16">
+  {
+    features.map((item) => (
+      <div class="flex flex-col gap-4 items-start group hover:bg-slate-50 hover:border-slate-100 border rounded-lg transition-all md:-m-5 p-5">
+        <div class="mt-1 bg-indigo-50 border shadow shadow-indigo-100/50 border-indigo-100 transition-colors rounded-lg grid place-items-center  p-2 w-10 h-10 shrink-0">
+          <Icon class="text-indigo-500" name={item.icon} size="24" />
+        </div>
+        <div>
+          <h3 class="font-semibold text-lg">{item.title}</h3>{" "}
+          <p class="text-slate-500 mt-2 leading-relaxed">{item.description}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>

@@ -1,0 +1,150 @@
+---
+import Badge from "@components/ui/badge.astro";
+import { Picture } from "astro:assets";
+import FeatureImg1 from "../assets/features/6.png";
+import FeatureImg2 from "../assets/features/2.png";
+import { Icon } from "astro-icon/components";
+import Link from "@components/ui/link.astro";
+
+import feature1 from "@assets/features/feature1.png";
+import feature2 from "@assets/features/feature2.png";
+import feature3 from "@assets/features/feature3.png";
+
+const { nomargin } = Astro.props;
+
+const features = [
+  {
+    heading: "Increase organic traffic to website",
+    description:
+      "SEO is often referred to as a ‘long-term play’ in the marketing world. The benefits of SEO gain momentum the longer you invest. As your website content continues to gain viewers and approach. Yet, with the SEO agency give your chances are more than higher your website gains is organic earned traffic and free of charge.",
+    metrics: [
+      {
+        key: "Client Retention Rate",
+        value: 98,
+        symbol: "%",
+      },
+      {
+        key: "Traffic Generated",
+        value: 40,
+        symbol: "M",
+      },
+      {
+        key: "SEO Project Complete",
+        value: 63,
+        symbol: "K",
+      },
+    ],
+    image: feature1,
+  },
+  {
+    heading: "Generated more revenue & trust",
+    description:
+      "By optimizing your website for search engines, attract more qualified leads, improve conversion rates and increase revenue.",
+    list: [
+      "Your site will be more visible and accessible",
+      "Optimizing your web pages to improve rankings",
+      "Increase your sales with high-quality SEO services",
+    ],
+    image: feature2,
+  },
+  {
+    heading: "Save time and resources easily",
+    description:
+      "SEO is a complex and time-consuming process that requires a significant amount of resources. Hiring us and we can save you time and resources, allowing you to focus on your business. We have the necessary tools and resources to perform keyword research, analyze website data, and optimize your website.",
+    ctaButton: {
+      text: "Schedule A Call Today",
+      link: "/contact",
+    },
+    image: feature3,
+  },
+];
+---
+
+<div class="mt-24">
+  {
+    features.map((feature, index) => (
+      <div class="grid md:grid-cols-2 py-10">
+        <div
+          class:list={[
+            "grid place-items-center mb-2",
+            index % 2 && "md:order-2",
+          ]}>
+          <Picture
+            src={feature.image}
+            alt="Feature Image"
+            formats={["avif", "webp"]}
+            height={400}
+            loading="lazy"
+          />
+        </div>
+
+        <div class="grid place-items-center">
+          <div class="max-w-lg">
+            <h3 class="text-2xl font-medium mt-4 [text-wrap:balance]">
+              {feature.heading}
+            </h3>
+            <p class="mt-4 text-slate-600 [text-wrap:balance]">
+              {feature.description}
+            </p>
+            {feature.metrics && (
+              <div class="mt-8">
+                <ul class="flex justify-between space-x-4 md:space-x-12">
+                  {feature.metrics.map((metric) => (
+                    <li>
+                      <div class="flex flex-col">
+                        <p class="text-2xl font-medium">
+                          {metric.value}
+                          <span class="text-indigo-600">{metric.symbol}</span>
+                        </p>
+                        <p class="text-slate-600">{metric.key}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {feature.list && (
+              <ul class="grid mt-6 text-left gap-y-4">
+                {feature.list.map((item) => (
+                  <li class="flex items-center gap-3">
+                    <Icon
+                      name="ph:check-circle-fill"
+                      class="w-5 h-5 text-indigo-600"
+                    />
+                    <span class="text-">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {feature.ctaButton && (
+              <div class="flex items-center gap-4 mt-6">
+                <Link
+                  href={feature.ctaButton.link}
+                  size="sm"
+                  class="inline-flex items-center group gap-px">
+                  <span>{feature.ctaButton.text}</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-4 h-4 mt-px group-hover:translate-x-1 transition-transform">
+                    <path
+                      fill-rule="evenodd"
+                      d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </Link>
+                {/*<a
+                href="#"
+                class="text-sm px-2 transition py-1 text-slate-600 hover:text-indigo-600 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-none focus-visible:shadow-outline-indigo rounded-full">
+                Contact Sales
+              </a>*/}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    ))
+  }
+</div>
