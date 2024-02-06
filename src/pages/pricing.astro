@@ -5,12 +5,14 @@ import Pricing from "@components/pricing.astro";
 import Faq from "@components/faq.astro";
 import ComparePricing from "@components/compare-pricing.astro";
 import PricingHeader from "@components/pricing-header.astro";
+import Cta from "@components/cta.astro";
 ---
 
-<Layout title="Pricing">
+<Layout title="Pricing" footerMargin={false}>
   <Container>
     <PricingHeader />
-    <ComparePricing />
+    <!-- <ComparePricing /> -->
     <Faq />
   </Container>
+  <Cta />
 </Layout>

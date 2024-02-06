@@ -5,18 +5,24 @@ import Container from "@components/container.astro";
 import Sectionhead from "@components/sectionhead.astro";
 import Button from "@components/ui/button.astro";
 import Contactform from "@components/contactform.astro";
+import Faq from "@components/faq.astro";
+import Cta from "@components/cta.astro";
 ---
 
-<Layout title="Contact">
+<Layout title="Contact" footerMargin={false}>
   <Container>
     <Sectionhead>
-      <Fragment slot="title">Contact</Fragment>
-      <Fragment slot="desc">Got Questions? We are here to help.</Fragment>
+      <Fragment slot="title">Contact our support team</Fragment>
+      <Fragment slot="desc">
+        We are here to help you! Tell us how we can help & we’ll be in touch
+        with an expert within the next 24 hours. We are proud to work with these
+        incredible companies.
+      </Fragment>
     </Sectionhead>
 
     <div class="grid md:grid-cols-2 gap-10 mx-auto max-w-4xl mt-16">
       <div>
-        <h2 class="font-medium text-2xl text-gray-800">Contact Astroship</h2>
+        <h2 class="font-medium text-2xl text-gray-800">Contact Info</h2>
         <p class="text-lg leading-relaxed text-slate-500 mt-3">
           Have something to say? We are here to help. Fill up the form or send
           email or call phone.
@@ -40,5 +46,7 @@ import Contactform from "@components/contactform.astro";
         <Contactform />
       </div>
     </div>
+    <Faq />
   </Container>
+  <Cta />
 </Layout>
