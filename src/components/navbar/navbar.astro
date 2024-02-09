@@ -4,34 +4,64 @@ import Link from "@components/ui/link.astro";
 import Dropdown from "./dropdown.astro";
 import { StickyHeader, Astronav, MenuItems, MenuIcon } from "astro-navbar";
 import { Picture } from "astro:assets";
-import logo from "@assets/logo.svg";
+import logo from "@assets/logo.png";
 
 const menuitems = [
-  // {
-  //   title: "Pages",
-  //   path: "#",
-  //   children: [
-  //     { title: "Features", path: "/features" },
-  //     { title: "Integrations", path: "/integrations" },
-  //     {
-  //       title: "Blog Details",
-  //       path: "/blog//typography-example",
-  //     },
-  //     { title: "404 Page", path: "/404" },
-  //   ],
-  // },
   {
-    title: "About",
-    path: "/about",
+    title: "Home",
+    path: "/",
   },
   {
-    title: "Blog",
-    path: "/blog",
+    title: "Solutions",
+    // path: "/marketing-solutions",
+    children: [
+      {
+        title: "Paid Search Marketing",
+        path: "/marketing-solutions/paid-search-marketing",
+      },
+      {
+        title: "Search Engine Optimization",
+        path: "/marketing-solutions/search-engine-optimization",
+      },
+      {
+        title: "Email Marketing",
+        path: "/marketing-solutions/email-marketing",
+      },
+      {
+        title: "Conversion Rate Optimization",
+        path: "/marketing-solutions/conversion-rate-optimization/",
+      },
+    ],
   },
   {
-    title: "Case Study",
-    path: "/case-study",
+    title: "Who We Are",
+    // path: "/about",
+    children: [
+      {
+        title: "About Us",
+        path: "/about",
+      },
+      {
+        title: "Blogs",
+        path: "/blog",
+      },
+      {
+        title: "Careers",
+        path: "/careers",
+      },
+    ],
   },
+  {
+    title: "Work",
+    // path: "/success-stories",
+    children: [
+      {
+        title: "Success Stories",
+        path: "/success-stories",
+      },
+    ],
+  },
+
   {
     title: "Pricing",
     path: "/pricing",

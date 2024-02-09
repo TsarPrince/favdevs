@@ -1,6 +1,6 @@
 export default {
-  name: "post",
-  title: "Post",
+  name: "successStories",
+  title: "Success Stories",
   type: "document",
   initialValue: () => ({
     publishedAt: new Date().toISOString(),
@@ -21,13 +21,19 @@ export default {
       },
     },
     {
-      name: "excerpt",
-      title: "Excerpt",
-      description:
-        "The excerpt is used in blog feeds, and also for search results",
-      type: "text",
-      rows: 3,
-      validation: (Rule) => Rule.max(200),
+      name: "heading",
+      title: "Heading",
+      type: "string",
+    },
+    {
+      name: "description",
+      title: "Description",
+      type: "string",
+    },
+    {
+      name: "about",
+      title: "About",
+      type: "string",
     },
     {
       name: "mainImage",
@@ -53,39 +59,27 @@ export default {
       },
     },
     {
-      name: "categories",
-      title: "Categories",
+      name: "services",
+      title: "Services Used",
       type: "array",
-      of: [{ type: "reference", to: { type: "category" } }],
-    },
-    {
-      name: "publishedAt",
-      title: "Published at",
-      type: "datetime",
-    },
-    {
-      name: "featured",
-      title: "Mark as Featured",
-      type: "boolean",
+      of: [{ type: "reference", to: { type: "service" } }],
     },
     {
       name: "body",
       title: "Body",
       type: "blockContent",
     },
+    {
+      name: "publishedAt",
+      title: "Published at",
+      type: "datetime",
+    },
   ],
 
   preview: {
     select: {
       title: "title",
-      author: "author.name",
       media: "mainImage",
-    },
-    prepare(selection) {
-      const { author } = selection;
-      return Object.assign({}, selection, {
-        subtitle: author && `by ${author}`,
-      });
     },
   },
 };
