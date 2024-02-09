@@ -7,10 +7,6 @@ module.exports = {
       fontFamily: {
         sans: ["Inter Variable", "Inter", ...defaultTheme.fontFamily.sans],
       },
-       backgroundSize: {
-      'reset': '100% 100%',
-      'scale': '120% 120%',
-    },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },

@@ -1,6 +1,6 @@
 ---
 import Container from "@components/container.astro";
-import urlFor from "@utils/urlFor"
+import urlFor from "@utils/urlFor";
 import { sanityClient } from "sanity:client";
 
 const stories = await sanityClient.fetch(
@@ -20,36 +20,44 @@ const stories = await sanityClient.fetch(
 <div class="overflow-x-clip py-12">
   <Container>
     <main class="border-y py-16">
-      <h3 class="text-2xl font-medium mt-4 [text-wrap:balance] text-center">
+      <h3
+        class="text-lg md:text-2xl font-medium mt-4 [text-wrap:balance] md:text-center">
         No matter what service you’re looking for — SEO, PPC, web design, social
         media, email marketing, or anything else — we’ve got you covered. Check
         out our portfolio to learn how our digital marketing solutions drive
         results for clients!
       </h3>
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-16">
-        {stories.map((story) => (
-          <a href={`succeess-stories/${story.slug.current}`} class="group">  
-            <div class="h-80 md:h-96 relative rounded-3xl md:rounded-[3rem] overflow-hidden hover:shadow-xl transition-all duration-300">
-              <img src={urlFor(story.mainImage).url()} alt={story.mainImage.alt} class="w-full h-full object-cover scale-100 group-hover:scale-125 transition-all duration-300">
-              <div class="absolute inset-0 transition duration-300 bg-black/50 hover:bg-black/60 p-4 md:p-8 text-white flex flex-col justify-between">
-                <p class="text-xs md:text-base font-bold">
-                  {story.title}
-                </p>
-                <div>
-                  <p class="text-2xl md:text-3xl font-semibold">{story.heading}</p>
-                  <div class="bg-white h-px w-full my-2 md:my-4" />
-                  <div class="flex flex-wrap">
-                    {story.services.map(service => (
-                      <span class="text-sm text-black bg-white rounded-full px-3 py-1 mr-2 mt-2">{
-                        service.title
-                      }</span>
-                    ))}
+        {
+          stories.map((story) => (
+            <a href={`succeess-stories/${story.slug.current}`} class="group">
+              <div class="h-80 md:h-96 relative rounded-3xl md:rounded-[3rem] overflow-hidden hover:shadow-xl transition-all duration-300">
+                <img
+                  src={urlFor(story.mainImage).url()}
+                  alt={story.mainImage.alt}
+                  class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-all duration-300"
+                />
+                <div class="absolute inset-0 transition duration-300 bg-black/50 hover:bg-black/60 p-4 md:p-8 text-white flex flex-col justify-between">
+                  <p class="text-xs md:text-base font-bold">{story.title}</p>
+                  <div>
+                    <p class="text-2xl md:text-3xl font-semibold">
+                      {story.heading}
+                    </p>
+
+                    <div class="bg-white h-px w-full my-2 md:my-4" />
+                    <div class="flex flex-wrap">
+                      {story.services.map((service) => (
+                        <span class="text-sm text-black bg-white rounded-full px-3 py-1 mr-2 mt-2">
+                          {service.title}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </a>
-        ))}
+            </a>
+          ))
+        }
       </div>
     </main>
   </Container>

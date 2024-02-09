@@ -1,5 +1,5 @@
-import IframePreview from "./previews/iframe";
-import TablePreview from "./previews/table";
+import IframePreview from "previews/iframe";
+import TablePreview from "previews/table";
 import { DocumentTextIcon } from "@sanity/icons";
 
 /**
