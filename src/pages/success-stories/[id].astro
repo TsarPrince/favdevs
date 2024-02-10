@@ -25,7 +25,7 @@ const stories = await sanityClient.fetch(
   }`,
 );
 const story = stories[0];
-// console.log(story)
+console.log(story.body);
 
 export const prerender = false;
 ---
@@ -43,7 +43,7 @@ export const prerender = false;
   <Container>
     <Logos />
     <main class="border-y py-16 mt-16">
-      <!-- <PortableText value={story.body} /> -->
+      <PortableText value={story.body} />
     </main>
   </Container>
   <Testimonials />
