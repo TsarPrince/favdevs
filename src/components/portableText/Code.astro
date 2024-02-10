@@ -1,8 +1,22 @@
 ---
-import { Prism } from "@astrojs/prism";
-
 const { node } = Astro.props;
-console.log(node);
+
+import Refractor from "react-refractor";
+import js from "refractor/lang/javascript";
+import jsx from "refractor/lang/jsx";
+import html from "refractor/lang/markup";
+import css from "refractor/lang/css";
+import bash from "refractor/lang/bash";
+
+Refractor.registerLanguage(js);
+Refractor.registerLanguage(jsx);
+Refractor.registerLanguage(html);
+Refractor.registerLanguage(css);
+Refractor.registerLanguage(bash);
 ---
 
-<Prism lang={node.language} code={node.code} />
+<Refractor
+  language={node.language || "bash"}
+  value={node.code}
+  markers={node.highlightedLines}
+/>
