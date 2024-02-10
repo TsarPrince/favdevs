@@ -2,7 +2,6 @@
 import Container from "@components/container.astro";
 
 const { title, subTitle, description, headerImg } = Astro.props;
-
 ---
 
 <div class="overflow-x-clip py-12">
@@ -30,13 +29,17 @@ const { title, subTitle, description, headerImg } = Astro.props;
         </p>
       </div>
       <div class="py-3 lg:col-span-3 lg:-mr-44">
-        <img
-          src={headerImg.src}
-          alt={headerImg.alt || ""}
-          class="md:h-[28rem] w-auto object-cover rounded-3xl md:rounded-[3rem]"
-          loading="eager"
-          fetchpriority="high"
-        />
+        {
+          headerImg && (
+            <img
+              src={headerImg.src}
+              alt={headerImg.alt || ""}
+              class="md:h-[28rem] w-auto object-cover rounded-3xl md:rounded-[3rem]"
+              loading="eager"
+              fetchpriority="high"
+            />
+          )
+        }
       </div>
     </main>
   </Container>

@@ -36,8 +36,8 @@ export const prerender = false;
     subTitle={story.title}
     description={story.description}
     headerImg={{
-      src: urlFor(story.mainImage).url(),
-      alt: story.mainImage.alt,
+      src: story.mainImage && urlFor(story.mainImage).url(),
+      alt: story.mainImage?.alt,
     }}
   />
   <Container>

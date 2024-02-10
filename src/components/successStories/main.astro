@@ -29,14 +29,16 @@ const stories = await sanityClient.fetch(
       </h3>
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-16">
         {
-          stories.map((story) => (
+          stories?.map((story) => (
             <a href={`success-stories/${story.slug.current}`} class="group">
               <div class="h-80 md:h-96 relative rounded-3xl md:rounded-[3rem] overflow-hidden hover:shadow-xl transition-all duration-300">
-                <img
-                  src={urlFor(story.mainImage).url()}
-                  alt={story.mainImage.alt}
-                  class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-all duration-300"
-                />
+                {story.mainImage && (
+                  <img
+                    src={urlFor(story.mainImage).url()}
+                    alt={story.mainImage.alt}
+                    class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-all duration-300"
+                  />
+                )}
                 <div class="absolute inset-0 transition duration-300 bg-black/50 hover:bg-black/60 p-4 md:p-8 text-white flex flex-col justify-between">
                   <p class="text-xs md:text-base font-bold">{story.title}</p>
                   <div>
@@ -46,7 +48,7 @@ const stories = await sanityClient.fetch(
 
                     <div class="bg-white h-px w-full my-2 md:my-4" />
                     <div class="flex flex-wrap">
-                      {story.services.map((service) => (
+                      {story.services?.map((service) => (
                         <span class="text-sm text-black bg-white rounded-full px-3 py-1 mr-2 mt-2">
                           {service.title}
                         </span>
