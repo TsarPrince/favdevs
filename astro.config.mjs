@@ -25,7 +25,7 @@ export default defineConfig({
       projectId: "btb9magv",
       dataset: "production",
       // Set useCdn to false if you're building statically.
-      useCdn: false,
+      useCdn: true,
       studioBasePath: "/admin",
     }),
     react(),

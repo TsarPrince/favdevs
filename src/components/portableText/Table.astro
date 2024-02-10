@@ -1,0 +1,29 @@
+---
+const { node } = Astro.props;
+const [head, ...rows] = node.table.rows;
+---
+
+<table>
+  {
+    head.cells.filter(Boolean).length > 0 && (
+      <thead>
+        <tr>
+          {head.cells.map((cell) => (
+            <th>{cell}</th>
+          ))}
+        </tr>
+      </thead>
+    )
+  }
+  <tbody>
+    {
+      rows.map((row, index) => (
+        <tr>
+          {row.cells.map((cell, index) => {
+            return <td>{cell}</td>;
+          })}
+        </tr>
+      ))
+    }
+  </tbody>
+</table>

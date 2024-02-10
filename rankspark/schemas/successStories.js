@@ -31,11 +31,6 @@ export default {
       type: "string",
     },
     {
-      name: "about",
-      title: "About",
-      type: "string",
-    },
-    {
       name: "mainImage",
       title: "Main image",
       type: "image",

@@ -1,6 +1,8 @@
-import IframePreview from "previews/iframe";
-import TablePreview from "previews/table";
+import Iframe from "react-iframe";
 import { DocumentTextIcon } from "@sanity/icons";
+
+import IframePreview from "./previews/iframe";
+import TablePreview from "./previews/table";
 
 /**
  * This is the schema definition for the rich text fields used for

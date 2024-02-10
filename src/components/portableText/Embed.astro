@@ -1,0 +1,17 @@
+---
+const { node } = Astro.props;
+const { url, height } = node;
+import { Tweet, Vimeo, YouTube } from "astro-embed";
+import getVideoId from "get-video-id";
+// "youtube" | "vimeo" | "vine" | "videopress" | "microsoftstream" | "tiktok" | "dailymotion" | null
+const { id, service } = getVideoId(url);
+---
+
+<div class="">
+  {service == "youtube" && <YouTube id={url} />}
+  {service == "vimeo" && <Vimeo id={url} />}
+  {
+    (url.startsWith("https://twitter.com") ||
+      url.startsWith("https://x.com")) && <Tweet id={url} />
+  }
+</div>

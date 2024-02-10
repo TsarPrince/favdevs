@@ -1,9 +1,8 @@
 ---
-import { Image, Picture } from "astro:assets";
-import heroImage from "../assets/hero-screenshot.png";
-import Link from "@components/ui/link.astro";
 import Container from "@components/container.astro";
-import successImg from "@assets/success.webp";
+
+const { title, subTitle, description, headerImg } = Astro.props;
+
 ---
 
 <div class="overflow-x-clip py-12">
@@ -19,24 +18,22 @@ import successImg from "@assets/success.webp";
       <div class="max-w-sm md:max-w-max lg:col-span-2">
         <p
           class="text-sm lg:text-md font-semibold [text-wrap:balance] text-center lg:text-start">
-          SUCCESS STORIES
+          {subTitle}
         </p>
         <h1
-          class="text-3xl lg:text-4xl xl:text-6xl font-bold [text-wrap:balance] text-center lg:text-start">
-          Delivering real results
+          class="text-3xl lg:text-4xl xl:text-6xl font-bold [text-wrap:balance] text-center lg:text-start mt-4">
+          {title}
         </h1>
         <p
           class="text-lg mt-4 max-w-lg text-slate-600 [text-wrap:balance] text-center lg:text-start">
-          When you partner with RankSpark, we take care of the heavy lifting, so
-          you can enjoy more website traffic, leads, and revenue.
+          {description}
         </p>
       </div>
       <div class="py-3 lg:col-span-3 lg:-mr-44">
-        <Picture
-          src={successImg}
-          alt="Decorative Image"
+        <img
+          src={headerImg.src}
+          alt={headerImg.alt || ""}
           class="md:h-[28rem] w-auto object-cover rounded-3xl md:rounded-[3rem]"
-          formats={["avif", "webp"]}
           loading="eager"
           fetchpriority="high"
         />

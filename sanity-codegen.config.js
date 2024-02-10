@@ -1,6 +1,6 @@
 const config = {
-  schemaPath: "./schemas",
-  outputPath: "./types.ts",
+  schemaPath: "./rankspark/schemas",
+  outputPath: "./src/types/sanity.ts",
 
   // NOTE: The CLI ships with a pre-configured babel config that shims out
   // the Sanity parts system. This babel config does not read from any

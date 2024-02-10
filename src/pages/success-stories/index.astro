@@ -1,19 +1,25 @@
 ---
 import Container from "@components/container.astro";
 import Cta from "@components/cta.astro";
-import Faq from "@components/faq.astro";
-import FeatureAlt from "@components/feature-alt.astro";
-import Features from "@components/features.astro";
 import Logos from "@components/logos.astro";
-import PricingHeader from "@components/pricing-header.astro";
 import Testimonials from "@components/testimonials.astro";
 import Layout from "@layouts/Layout.astro";
 import Hero from "@components/successStories/hero.astro";
 import Main from "@components/successStories/main.astro";
+import successImg from "@assets/success.webp";
+
 ---
 
 <Layout footerMargin={false}>
-  <Hero />
+  <Hero
+    title="Delivering real results" 
+    subTitle="SUCCESS STORIES"
+    description="When you partner with RankSpark, we take care of the heavy lifting, so you can enjoy more website traffic, leads, and revenue."
+    headerImg={{
+      src: successImg.src,
+      alt: "Decorative Image"
+    }}
+  />
   <Container>
     <Logos />
     <Main />

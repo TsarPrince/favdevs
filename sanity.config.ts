@@ -1,6 +1,6 @@
 // sanity.config.ts
 import { defineConfig } from "sanity";
-import { schemaTypes } from "./rankspark/schemas";
+import schemaTypes from "./rankspark/schemas";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 

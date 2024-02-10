@@ -1,0 +1,21 @@
+---
+import { PortableText as PortableTextInternal } from "astro-portabletext";
+
+import Code from "./Code.astro";
+import Image from "./Image.astro";
+import Table from "./Table.astro";
+import Embed from "./Embed.astro";
+
+const components = {
+  type: {
+    image: Image,
+    code: Code,
+    embed: Embed,
+    tables: Table,
+  },
+};
+---
+
+<div class="prose prose-slate mx-auto max-w-3xl lg:prose-lg">
+  <PortableTextInternal value={Astro.props.value} components={components} />
+</div>
