@@ -4,13 +4,13 @@ import Cta from "@components/cta.astro";
 import Logos from "@components/logos.astro";
 import Testimonials from "@components/testimonials.astro";
 import Layout from "@layouts/Layout.astro";
-import Hero from "@components/successStories/hero.astro";
+import Hero from "@components/hero.astro";
 import PortableText from "@components/portableText/index.astro";
 import urlFor from "@utils/urlFor";
 import { sanityClient } from "sanity:client";
 
 const { id } = Astro.params;
-const stories = await sanityClient.fetch(
+const story = await sanityClient.fetch(
   `*[_type == "successStories" && slug.current == "${id}"] {
     slug,
     title,
@@ -22,9 +22,8 @@ const stories = await sanityClient.fetch(
     services[]->{
       title
     }
-  }`,
+  }[0]`,
 );
-const story = stories?.[0];
 if (!story) {
   return Astro.redirect("/404");
 }
@@ -34,12 +33,11 @@ export const prerender = false;
 
 <Layout footerMargin={false}>
   <Hero
-    title={story.heading}
-    subTitle={story.title}
-    description={story.description}
-    headerImg={{
-      src: story.mainImage && urlFor(story.mainImage).url(),
-      alt: story.mainImage?.alt,
+    header={{
+      title: story.heading,
+      subTitle: story.title,
+      description: story.description,
+      image: story.mainImage,
     }}
   />
   <Container>

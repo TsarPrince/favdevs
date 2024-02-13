@@ -1,0 +1,46 @@
+---
+import Container from "@components/container.astro";
+
+const { title, subTitle, description, headerImg } = Astro.props;
+---
+
+<div class="overflow-x-clip py-12">
+  <Container>
+    <main class="grid lg:grid-cols-5 place-items-center relative">
+      <div
+        class="absolute w-96 h-96 blur-2xl -z-10 bg-gradient-radial from-indigo-200 right-0 top-0">
+      </div>
+      <div
+        class="absolute w-96 h-96 blur-2xl -z-10 bg-gradient-radial from-purple-200 right-56 top-10">
+      </div>
+
+      <div class="max-w-sm md:max-w-max lg:col-span-2">
+        <p
+          class="text-sm lg:text-md font-semibold [text-wrap:balance] text-center lg:text-start">
+          {subTitle}
+        </p>
+        <h1
+          class="text-3xl lg:text-4xl xl:text-6xl font-bold [text-wrap:balance] text-center lg:text-start mt-4">
+          {title}
+        </h1>
+        <p
+          class="text-lg mt-4 max-w-lg text-slate-600 [text-wrap:balance] text-center lg:text-start">
+          {description}
+        </p>
+      </div>
+      <div class="py-3 lg:col-span-3 lg:-mr-44">
+        {
+          headerImg && (
+            <img
+              src={headerImg.src}
+              alt={headerImg.alt || ""}
+              class="md:h-[28rem] w-auto object-cover rounded-3xl md:rounded-[3rem]"
+              loading="eager"
+              fetchpriority="high"
+            />
+          )
+        }
+      </div>
+    </main>
+  </Container>
+</div>
