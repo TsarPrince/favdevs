@@ -92,6 +92,9 @@ dependencies:
   get-video-id:
     specifier: ^3.6.5
     version: 3.6.5
+  groq:
+    specifier: ^3.29.0
+    version: 3.29.0
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -5887,6 +5890,11 @@ packages:
   /groq-js@1.4.1:
     resolution: {integrity: sha512-AA9n7NRxGd0smsAW/vE+dudCL3mBd73Fe21I7cMrrpDHamVFvWHNMs8LdkfvFBsnHI9XKQph8swzI4ExDWhsgg==}
     engines: {node: '>= 14'}
+    dev: false
+
+  /groq@3.29.0:
+    resolution: {integrity: sha512-2jSTGJ4ZtfOEleVEeRBE4CSRyIDyGDKXCamW1G+j08NsC7njkG7utvlCHfJXiUAkUsSWaMloRruj/8b3p+rkFg==}
+    engines: {node: '>=18'}
     dev: false
 
   /gunzip-maybe@1.4.2:

@@ -6,6 +6,7 @@ import { visionTool } from "@sanity/vision";
 
 import { pageStructure, singletonPlugin } from "./rankspark/plugins/settings";
 import settings from "./rankspark/schemas/settings";
+import landingPage from "./rankspark/schemas/landingPage";
 import { table } from "@sanity/table";
 import { codeInput } from "@sanity/code-input";
 
@@ -16,10 +17,10 @@ export default defineConfig({
   dataset: "production",
   plugins: [
     structureTool({
-      structure: pageStructure([settings]),
+      structure: pageStructure([settings, landingPage]),
     }),
     visionTool(),
-    singletonPlugin(["settings"]),
+    singletonPlugin(["settings", "landingPage"]),
     table(),
     codeInput(),
   ],

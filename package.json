@@ -10,7 +10,6 @@
     "astro": "astro",
     "gen": "sanity-codegen"
   },
-  "type": "module",
   "dependencies": {
     "@astrojs/mdx": "^2.1.1",
     "@astrojs/prism": "^3.0.0",
@@ -41,6 +40,7 @@
     "astro-portabletext": "^0.9.6",
     "astro-seo": "^0.8.0",
     "get-video-id": "^3.6.5",
+    "groq": "^3.29.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-iframe": "^1.8.5",

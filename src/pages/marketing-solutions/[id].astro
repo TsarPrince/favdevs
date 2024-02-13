@@ -3,38 +3,55 @@ import Container from "@components/container.astro";
 import Cta from "@components/cta.astro";
 import Faq from "@components/faq.astro";
 import FeatureAlt from "@components/feature-alt.astro";
+import FeatureGrid from "@components/feature-grid.astro";
 import Features from "@components/features.astro";
-import Hero from "@components/hero.astro";
+import Footer from "@components/footer.astro";
 import Logos from "@components/logos.astro";
 import PricingHeader from "@components/pricing-header.astro";
+import Pricing from "@components/pricing.astro";
 import Testimonials from "@components/testimonials.astro";
 import Layout from "@layouts/Layout.astro";
-import groq from "groq";
+import Hero from "@components/hero.astro";
 import { sanityClient } from "sanity:client";
+import urlFor from "@utils/urlFor";
 
-const query = groq`*[_type == "landingPage"] {
+const { id } = Astro.params;
+const solutions = await sanityClient.fetch(
+  `*[_type == "marketingSolutions" && slug.current == "${id}"] {
+    slug,
+    title,
     header {
-      title,
       description,
-      image,
-      primaryButton->{ text, path },
-      secondaryButton->{ text, path },
+      mainImage,
+      button->{
+        text,
+        path
+      }
     },
     features
-  }[0]`;
-
-const landingPage = await sanityClient.fetch(query);
-if (!landingPage) {
+  }`,
+);
+const solution = solutions?.[0];
+if (!solution) {
   return Astro.redirect("/404");
 }
+
 export const prerender = false;
 ---
 
 <Layout footerMargin={false}>
-  <Hero header={landingPage.header} />
+  <Hero
+    header={{
+      title: solution.title,
+      subTitle: "Marketing Solutions",
+      description: solution.header.description,
+      image: solution.header.mainImage,
+      primaryButton: solution.header.button,
+    }}
+  />
   <Container>
     <Logos />
-    <FeatureAlt features={landingPage.features} />
+    <FeatureAlt features={solution.features} />
     <Features />
   </Container>
   <div class="bg-indigo-50/40 pt-4 pb-12 mt-24">

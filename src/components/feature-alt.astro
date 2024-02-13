@@ -9,55 +9,77 @@ import Link from "@components/ui/link.astro";
 import feature1 from "@assets/features/feature1.png";
 import feature2 from "@assets/features/feature2.png";
 import feature3 from "@assets/features/feature3.png";
+import type { SanityImageAsset, SanityReference } from "sanity-codegen";
+import urlFor from "@utils/urlFor";
 
-const { nomargin } = Astro.props;
+interface Props {
+  features: {
+    heading?: string;
+    description?: string;
+    image?: {
+      asset: SanityReference<SanityImageAsset>;
+      alt?: string;
+    };
+    metrics?: {
+      key: string;
+      value: number;
+      symbol: string;
+    }[];
+    list?: string[];
+    ctaButton?: {
+      text: string;
+      link: string;
+    };
+  }[];
+}
+const { features } = Astro.props;
 
-const features = [
-  {
-    heading: "Increase organic traffic to website",
-    description:
-      "SEO is often referred to as a ‘long-term play’ in the marketing world. The benefits of SEO gain momentum the longer you invest. As your website content continues to gain viewers and approach. Yet, with the SEO agency give your chances are more than higher your website gains is organic earned traffic and free of charge.",
-    metrics: [
-      {
-        key: "Client Retention Rate",
-        value: 98,
-        symbol: "%",
-      },
-      {
-        key: "Traffic Generated",
-        value: 40,
-        symbol: "M",
-      },
-      {
-        key: "SEO Project Complete",
-        value: 63,
-        symbol: "K",
-      },
-    ],
-    image: feature1,
-  },
-  {
-    heading: "Generated more revenue & trust",
-    description:
-      "By optimizing your website for search engines, attract more qualified leads, improve conversion rates and increase revenue.",
-    list: [
-      "Your site will be more visible and accessible",
-      "Optimizing your web pages to improve rankings",
-      "Increase your sales with high-quality SEO services",
-    ],
-    image: feature2,
-  },
-  {
-    heading: "Save time and resources easily",
-    description:
-      "SEO is a complex and time-consuming process that requires a significant amount of resources. Hiring us and we can save you time and resources, allowing you to focus on your business. We have the necessary tools and resources to perform keyword research, analyze website data, and optimize your website.",
-    ctaButton: {
-      text: "Schedule A Call Today",
-      link: "/contact",
-    },
-    image: feature3,
-  },
-];
+// const features = [
+//   {
+//     heading: "Increase organic traffic to website",
+//     description:
+//       "SEO is often referred to as a ‘long-term play’ in the marketing world. The benefits of SEO gain momentum the longer you invest. As your website content continues to gain viewers and approach. Yet, with the SEO agency give your chances are more than higher your website gains is organic earned traffic and free of charge.",
+//     metrics: [
+//       {
+//         key: "Client Retention Rate",
+//         value: 98,
+//         symbol: "%",
+//       },
+//       {
+//         key: "Traffic Generated",
+//         value: 40,
+//         symbol: "M",
+//       },
+//       {
+//         key: "SEO Project Complete",
+//         value: 63,
+//         symbol: "K",
+//       },
+//     ],
+//     image: feature1,
+//   },
+//   {
+//     heading: "Generated more revenue & trust",
+//     description:
+//       "By optimizing your website for search engines, attract more qualified leads, improve conversion rates and increase revenue.",
+//     list: [
+//       "Your site will be more visible and accessible",
+//       "Optimizing your web pages to improve rankings",
+//       "Increase your sales with high-quality SEO services",
+//     ],
+//     image: feature2,
+//   },
+//   {
+//     heading: "Save time and resources easily",
+//     description:
+//       "SEO is a complex and time-consuming process that requires a significant amount of resources. Hiring us and we can save you time and resources, allowing you to focus on your business. We have the necessary tools and resources to perform keyword research, analyze website data, and optimize your website.",
+//     ctaButton: {
+//       text: "Schedule A Call Today",
+//       link: "/contact",
+//     },
+//     image: feature3,
+//   },
+// ];
 ---
 
 <div class="mt-24">
@@ -69,12 +91,12 @@ const features = [
             "grid place-items-center mb-2",
             index % 2 && "md:order-2",
           ]}>
-          <Picture
-            src={feature.image}
-            alt="Feature Image"
-            formats={["avif", "webp"]}
+          <img
+            src={urlFor(feature.image).url()}
+            alt={feature.image?.alt}
             height={400}
             loading="lazy"
+            class="md:h-[28rem] max-w-xl w-auto object-cover rounded-3xl md:rounded-[3rem]"
           />
         </div>
 
