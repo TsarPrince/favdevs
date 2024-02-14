@@ -9,6 +9,11 @@ import settings from "./rankspark/schemas/settings";
 import landingPage from "./rankspark/schemas/landingPage";
 import { table } from "@sanity/table";
 import { codeInput } from "@sanity/code-input";
+import logos from "./rankspark/schemas/logos";
+import pricing from "./rankspark/schemas/pricing";
+import testimonials from "./rankspark/schemas/testimonials";
+import faqs from "./rankspark/schemas/faqs";
+import cta from "./rankspark/schemas/cta";
 
 export default defineConfig({
   name: "rankspark",
@@ -17,7 +22,15 @@ export default defineConfig({
   dataset: "production",
   plugins: [
     structureTool({
-      structure: pageStructure([settings, landingPage]),
+      structure: pageStructure([
+        settings,
+        landingPage,
+        logos,
+        pricing,
+        testimonials,
+        faqs,
+        cta,
+      ]),
     }),
     visionTool(),
     singletonPlugin(["settings", "landingPage"]),

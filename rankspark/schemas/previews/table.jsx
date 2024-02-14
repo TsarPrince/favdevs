@@ -1,6 +1,4 @@
 const TablePreview = ({ table }) => {
-  console.log("eee", table);
-
   if (!table) {
     return <p>Table: Add Values</p>;
   }
@@ -10,7 +8,7 @@ const TablePreview = ({ table }) => {
       {head.cells.filter(Boolean).length > 0 && (
         <thead>
           <tr>
-            {head.cells.map(cell => (
+            {head.cells.map((cell) => (
               <th style={{ textAlign: "left" }} key={cell}>
                 {cell}
               </th>

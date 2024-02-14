@@ -3,56 +3,59 @@ import Card from "@components/card.astro";
 import Container from "@components/container.astro";
 import Review from "@components/review.astro";
 
-const testimonials = [
-  {
-    name: "John Doe",
-    title: "CEO at TechCorp",
-    image: "https://source.unsplash.com/fHXpgMd_XhE",
-    text: "Amazing agency! The whole SEO team is knowledgeable, friendly and incredibly helpful. I am very much satisfied with their work.",
-  },
-  {
-    name: "Jane Smith",
-    title: "HR Manager at ConnectCo",
+import { sanityClient } from "sanity:client";
 
-    image: "https://source.unsplash.com/jzz_3jWMzHA",
-    text: "As a marketing professional, I love using Astroship to streamline our marketing campaigns. The automation features and data analytics help us make data-driven decisions and optimize our business strategies. ",
-  },
-  {
-    name: "Mike Johnson",
-    title: "CTO at CloudNine",
-    image: "https://source.unsplash.com/fHXpgMd_XhE",
-    text: "Amazing agency! The whole SEO team is knowledgeable, friendly and incredibly helpful. I am very much satisfied with their work.",
-  },
-  {
-    name: "Emily Brown",
-    title: "HR Manager at ConnectCo",
-    image: "https://source.unsplash.com/2EdIX-O2lkI",
-    text: "As a marketing professional, I love using Astroship to streamline our marketing campaigns. The automation features and data analytics help us make data-driven decisions and optimize our business strategies. ",
-  },
-  {
-    name: "David Lee",
-    title: "Sales Director at Linkify",
-    image: "https://source.unsplash.com/QEgHL8NN7nM",
-    text: "Amazing agency! The whole SEO team is knowledgeable, friendly and incredibly helpful. I am very much satisfied with their work.",
-  },
-  {
-    name: "Sarah Martinez",
-    title: "Finance Controller at MoneyMakers",
-    image: "https://source.unsplash.com/6qf1uljGpU4",
-    text: "Astroship has been a lifesaver for our finance department. Its robust accounting features and automated invoicing have saved us countless hours of manual work. It's the perfect financial companion for any business!",
-  },
-];
+const testimonials = await sanityClient.fetch(`*[_type == "testimonials"][0]`);
+// console.log(testimonials);
+
+// const testimonials = [
+//   {
+//     name: "John Doe",
+//     title: "CEO at TechCorp",
+//     image: "https://source.unsplash.com/fHXpgMd_XhE",
+//     text: "Amazing agency! The whole SEO team is knowledgeable, friendly and incredibly helpful. I am very much satisfied with their work.",
+//   },
+//   {
+//     name: "Jane Smith",
+//     title: "HR Manager at ConnectCo",
+
+//     image: "https://source.unsplash.com/jzz_3jWMzHA",
+//     text: "As a marketing professional, I love using Astroship to streamline our marketing campaigns. The automation features and data analytics help us make data-driven decisions and optimize our business strategies. ",
+//   },
+//   {
+//     name: "Mike Johnson",
+//     title: "CTO at CloudNine",
+//     image: "https://source.unsplash.com/fHXpgMd_XhE",
+//     text: "Amazing agency! The whole SEO team is knowledgeable, friendly and incredibly helpful. I am very much satisfied with their work.",
+//   },
+//   {
+//     name: "Emily Brown",
+//     title: "HR Manager at ConnectCo",
+//     image: "https://source.unsplash.com/2EdIX-O2lkI",
+//     text: "As a marketing professional, I love using Astroship to streamline our marketing campaigns. The automation features and data analytics help us make data-driven decisions and optimize our business strategies. ",
+//   },
+//   {
+//     name: "David Lee",
+//     title: "Sales Director at Linkify",
+//     image: "https://source.unsplash.com/QEgHL8NN7nM",
+//     text: "Amazing agency! The whole SEO team is knowledgeable, friendly and incredibly helpful. I am very much satisfied with their work.",
+//   },
+//   {
+//     name: "Sarah Martinez",
+//     title: "Finance Controller at MoneyMakers",
+//     image: "https://source.unsplash.com/6qf1uljGpU4",
+//     text: "Astroship has been a lifesaver for our finance department. Its robust accounting features and automated invoicing have saved us countless hours of manual work. It's the perfect financial companion for any business!",
+//   },
+// ];
 ---
 
 <Container>
   <div class="mt-24">
     <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight text-center">
-      Hear what our customers say!
+      {testimonials?.heading}
     </h2>
     <p class="text-lg mt-4 text-slate-600 text-center">
-      We provide excellent customer service. We have loyal customers all over
-      the world. We take pride in working with outcome-focused client
-      businesses.
+      {testimonials?.subHeading}
     </p>
   </div>
 </Container>
@@ -67,12 +70,12 @@ const testimonials = [
   <div class="relative md:flex gap-10 overflow-hidden py-5 group">
     <div
       class="md:motion-safe:animate-marquee w-auto py-5 overflow-x-auto flex flex-nowrap min-w-full shrink-0 items-stretch gap-10 snap-x snap-mandatory px-5">
-      {testimonials.map((item) => <Review {...item} />)}
+      {testimonials?.testimonials?.map((item) => <Review {...item} />)}
     </div>
     <!--  ↓↓ Shadow DOM to make the animation smooth (clone) ↓↓ -->
     <div
       class="md:motion-safe:animate-marquee hidden md:motion-reduce:hidden md:flex min-w-full shrink-0 items-center gap-10">
-      {testimonials.map((item) => <Review {...item} />)}
+      {testimonials?.testimonials?.map((item) => <Review {...item} />)}
     </div>
   </div>
 </div>

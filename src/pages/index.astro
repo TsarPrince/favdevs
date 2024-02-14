@@ -20,14 +20,20 @@ const query = groq`*[_type == "landingPage"] {
       primaryButton->{ text, path },
       secondaryButton->{ text, path },
     },
-    features
+    features {
+      heading,
+      description,
+      image,
+      metrics[],
+      list[],
+      button->{text, path}
+    }[]
   }[0]`;
 
 const landingPage = await sanityClient.fetch(query);
 if (!landingPage) {
   return Astro.redirect("/404");
 }
-export const prerender = false;
 ---
 
 <Layout footerMargin={false}>

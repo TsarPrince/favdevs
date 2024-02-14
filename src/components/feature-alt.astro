@@ -26,9 +26,9 @@ interface Props {
       symbol: string;
     }[];
     list?: string[];
-    ctaButton?: {
+    button?: {
       text: string;
-      link: string;
+      path: string;
     };
   }[];
 }
@@ -84,7 +84,7 @@ const { features } = Astro.props;
 
 <div class="mt-24">
   {
-    features.map((feature, index) => (
+    features?.map((feature, index) => (
       <div class="grid md:grid-cols-2 py-10">
         <div
           class:list={[
@@ -92,23 +92,22 @@ const { features } = Astro.props;
             index % 2 && "md:order-2",
           ]}>
           <img
-            src={urlFor(feature.image).url()}
+            src={urlFor(feature?.image).url()}
             alt={feature.image?.alt}
-            height={400}
             loading="lazy"
-            class="md:h-[28rem] max-w-xl w-auto object-cover rounded-3xl md:rounded-[3rem]"
+            class="md:h-[28rem] max-w-xs md:max-w-lg w-auto object-cover rounded-3xl md:rounded-[3rem]"
           />
         </div>
 
         <div class="grid place-items-center">
           <div class="max-w-lg">
             <h3 class="text-2xl font-medium mt-4 [text-wrap:balance]">
-              {feature.heading}
+              {feature?.heading}
             </h3>
             <p class="mt-4 text-slate-600 [text-wrap:balance]">
-              {feature.description}
+              {feature?.description}
             </p>
-            {feature.metrics && (
+            {feature?.metrics && (
               <div class="mt-8">
                 <ul class="flex justify-between space-x-4 md:space-x-12">
                   {feature.metrics.map((metric) => (
@@ -125,7 +124,7 @@ const { features } = Astro.props;
                 </ul>
               </div>
             )}
-            {feature.list && (
+            {feature?.list && (
               <ul class="grid mt-6 text-left gap-y-4">
                 {feature.list.map((item) => (
                   <li class="flex items-center gap-3">
@@ -138,13 +137,13 @@ const { features } = Astro.props;
                 ))}
               </ul>
             )}
-            {feature.ctaButton && (
+            {feature?.button && (
               <div class="flex items-center gap-4 mt-6">
                 <Link
-                  href={feature.ctaButton.link}
+                  href={feature.button.path}
                   size="sm"
                   class="inline-flex items-center group gap-px">
-                  <span>{feature.ctaButton.text}</span>
+                  <span>{feature.button.text}</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"

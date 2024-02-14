@@ -14,7 +14,7 @@ export default defineConfig({
   image: {
     domains: ["source.unsplash.com", "images.unsplash.com"],
   },
-  output: "hybrid",
+  output: "server",
   adapter: vercel(),
   integrations: [
     tailwind(),

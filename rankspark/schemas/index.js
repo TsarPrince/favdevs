@@ -6,11 +6,21 @@ import services from "./services";
 import button from "./button";
 import marketingSolutions from "./marketingSolutions";
 import landingPage from "./landingPage";
+import logos from "./logos";
+import pricing from "./pricing";
+import testimonials from "./testimonials";
+import faqs from "./faqs";
+import cta from "./cta";
 
 const schemaTypes = [
   // category,
   settings,
   landingPage,
+  logos,
+  pricing,
+  testimonials,
+  faqs,
+  cta,
 
   successStories,
   marketingSolutions,

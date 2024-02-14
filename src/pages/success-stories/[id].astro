@@ -27,8 +27,6 @@ const story = await sanityClient.fetch(
 if (!story) {
   return Astro.redirect("/404");
 }
-
-export const prerender = false;
 ---
 
 <Layout footerMargin={false}>

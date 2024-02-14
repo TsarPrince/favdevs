@@ -1,12 +1,11 @@
+import { DesktopIcon } from "@sanity/icons";
 import { defineType } from "sanity";
 
 export default defineType({
   name: "landingPage",
   title: "Landing Page",
   type: "document",
-  initialValue: () => ({
-    publishedAt: new Date().toISOString(),
-  }),
+  icon: DesktopIcon,
   fields: [
     {
       name: "header",
@@ -56,6 +55,7 @@ export default defineType({
         },
       ],
     },
+
     {
       name: "features",
       title: "Features",
@@ -148,7 +148,53 @@ export default defineType({
         },
       ],
     },
-
+    {
+      name: "featuresGrid",
+      title: "Features Grid",
+      type: "object",
+      options: {
+        collapsible: true,
+      },
+      fields: [
+        {
+          name: "heading",
+          title: "Heading",
+          type: "string",
+        },
+        {
+          name: "subHeading",
+          title: "Sub Heading",
+          type: "string",
+        },
+        {
+          name: "features",
+          title: "Features",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                {
+                  name: "title",
+                  title: "Title",
+                  type: "string",
+                },
+                {
+                  name: "description",
+                  title: "Description",
+                  type: "string",
+                },
+                {
+                  name: "icon",
+                  title: "Icon",
+                  type: "string",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
     {
       name: "publishedAt",
       title: "Published at",
