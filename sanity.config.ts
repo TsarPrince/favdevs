@@ -14,6 +14,7 @@ import pricing from "./rankspark/schemas/pricing";
 import testimonials from "./rankspark/schemas/testimonials";
 import faqs from "./rankspark/schemas/faqs";
 import cta from "./rankspark/schemas/cta";
+import careers from "./rankspark/schemas/careers";
 
 export default defineConfig({
   name: "rankspark",
@@ -30,6 +31,7 @@ export default defineConfig({
         testimonials,
         faqs,
         cta,
+        careers,
       ]),
     }),
     visionTool(),

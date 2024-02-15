@@ -11,6 +11,7 @@ import pricing from "./pricing";
 import testimonials from "./testimonials";
 import faqs from "./faqs";
 import cta from "./cta";
+import careers from "./careers";
 
 const schemaTypes = [
   // category,
@@ -21,6 +22,7 @@ const schemaTypes = [
   testimonials,
   faqs,
   cta,
+  careers,
 
   successStories,
   marketingSolutions,

@@ -2,8 +2,8 @@ import { DesktopIcon } from "@sanity/icons";
 import { defineType } from "sanity";
 
 export default defineType({
-  name: "landingPage",
-  title: "Landing Page",
+  name: "careers",
+  title: "Careers",
   type: "document",
   icon: DesktopIcon,
   fields: [
@@ -45,12 +45,6 @@ export default defineType({
         {
           name: "primaryButton",
           title: "Primary Button",
-          type: "reference",
-          to: [{ type: "button" }],
-        },
-        {
-          name: "secondaryButton",
-          title: "Secondary Button",
           type: "reference",
           to: [{ type: "button" }],
         },
@@ -198,9 +192,53 @@ export default defineType({
       ],
     },
     {
-      name: "publishedAt",
-      title: "Published at",
-      type: "datetime",
+      name: "openPositions",
+      title: "Open Positions",
+      type: "object",
+      fields: [
+        {
+          name: "heading",
+          title: "Heading",
+          type: "string",
+        },
+        {
+          name: "subHeading",
+          title: "Sub Heading",
+          type: "string",
+        },
+        {
+          name: "positions",
+          title: "Positions",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                {
+                  name: "position",
+                  title: "Position",
+                  type: "string",
+                },
+                {
+                  name: "mode",
+                  title: "Mode",
+                  type: "string",
+                },
+                {
+                  name: "publishedAt",
+                  title: "Published at",
+                  type: "datetime",
+                },
+                {
+                  name: "open",
+                  title: "Open",
+                  type: "boolean",
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
   ],
 

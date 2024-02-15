@@ -6,13 +6,14 @@ import FeatureAlt from "@components/feature-alt.astro";
 import Features from "@components/features.astro";
 import Hero from "@components/hero.astro";
 import Logos from "@components/logos.astro";
+import OpenPositions from "@components/open-positions.astro";
 import PricingHeader from "@components/pricing-header.astro";
 import Testimonials from "@components/testimonials.astro";
 import Layout from "@layouts/Layout.astro";
 import groq from "groq";
 import { sanityClient } from "sanity:client";
 
-const query = groq`*[_type == "landingPage"] {
+const query = groq`*[_type == "careers"] {
     header {
       title,
       description,
@@ -28,31 +29,32 @@ const query = groq`*[_type == "landingPage"] {
       list[],
       button->{text, path}
     }[],
-    featuresGrid
+    featuresGrid,
+    openPositions {
+        heading,
+        subHeading,
+        positions {
+          position,
+          mode,
+          open,
+          publishedAt
+        } [open == true] | order(publishedAt desc)
+    }
   }[0]`;
 
-const landingPage = await sanityClient.fetch(query);
-if (!landingPage) {
+const page = await sanityClient.fetch(query);
+if (!page) {
   return Astro.redirect("/404");
 }
 ---
 
 <Layout footerMargin={false}>
-  <Hero header={landingPage.header} />
+  <Hero header={{ ...page.header, subTitle: "Careers" }} />
   <Container>
-    <Logos />
-    <FeatureAlt features={landingPage.features} />
-    <Features features={landingPage.featuresGrid} />
-  </Container>
-  <div class="bg-indigo-50/40 pt-4 pb-12 mt-24">
-    <Container>
-      <PricingHeader />
-    </Container>
-  </div>
-  <Testimonials />
-  <Container>
-    <Faq />
-    <!-- <FeatureGrid /> -->
+    <!-- <Logos /> -->
+    <FeatureAlt features={page.features} />
+    <Features features={page.featuresGrid} />
+    <OpenPositions openPositions={page.openPositions} />
   </Container>
   <Cta />
 </Layout>

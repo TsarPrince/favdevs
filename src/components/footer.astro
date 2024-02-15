@@ -6,6 +6,10 @@ import logo from "@assets/logo.png";
 
 const { margin } = Astro.props;
 
+import urlFor from "@utils/urlFor";
+
+const { settings, marketingSolutions, successStories } = Astro.props;
+
 const footermenu = {
   company: [
     {
@@ -14,7 +18,7 @@ const footermenu = {
     },
     {
       title: "Careers",
-      path: "#",
+      path: "/careers",
     },
     {
       title: "Blog",
@@ -25,42 +29,14 @@ const footermenu = {
       path: "/contact",
     },
   ],
-  product: [
-    {
-      title: "For Startups",
-      path: "#",
-    },
-    {
-      title: "Features",
-      path: "#",
-    },
-    {
-      title: "Pricing",
-      path: "/pricing",
-    },
-    {
-      title: "Integrations",
-      path: "#",
-    },
-  ],
-  resources: [
-    {
-      title: "Help Center",
-      path: "#",
-    },
-    {
-      title: "Guides",
-      path: "#",
-    },
-    {
-      title: "Documentation",
-      path: "#",
-    },
-    {
-      title: "Uptime Status",
-      path: "#",
-    },
-  ],
+  marketingSolutions: marketingSolutions?.map((item) => ({
+    title: item.title,
+    path: "/marketing-solutions/" + item.slug.current,
+  })),
+  successStories: successStories?.map((item) => ({
+    title: item.title,
+    path: "/success-stories/" + item.slug.current,
+  })),
 };
 ---
 
@@ -73,39 +49,54 @@ const footermenu = {
     <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
       <div class="sm:col-span-2 md:col-span-3 lg:col-span-2">
         <a href="/" class="text-lg flex items-center">
-          <Picture src={logo} alt="logo" width={120} />
+          <img src={urlFor(settings?.logo).url()} alt="logo" width={120} />
         </a>
         <p class="mt-4 text-sm text-slate-700 max-w-xs">
-          Astroship Pro is a premium astro website template made for saas &
-          startups. Built with Astro and Tailwind CSS.
+          {settings?.title}
         </p>
         <div class="flex gap-3 mt-4 items-center">
-          <a
-            href="https://twitter.com/surjithctly"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-slate-200 hover:bg-slate-300 rounded w-6 h-6 inline-flex items-center justify-center text-slate-500">
-            <Icon name="bx:bxl-twitter" class="w-4 h-4" />
-            <span class="sr-only">Twitter or X</span></a
-          >
-          <a
-            href="https://facebook.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-slate-200 hover:bg-slate-300 rounded w-6 h-6 inline-flex items-center justify-center text-slate-500">
-            <Icon name="bx:bxl-facebook-circle" class="w-4 h-4" /><span
-              class="sr-only">Facebook</span
-            ></a
-          >
-          <a
-            href="https://linkedin.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-slate-200 hover:bg-slate-300 rounded w-6 h-6 inline-flex items-center justify-center text-slate-500">
-            <Icon name="bx:bxl-linkedin-square" class="w-4 h-4" /><span
-              class="sr-only">Linkedin</span
-            ></a
-          >
+          {
+            settings?.social?.map((social) => (
+              <a
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-slate-200 hover:bg-slate-300 rounded w-6 h-6 inline-flex items-center justify-center text-slate-500">
+                <div>
+                  {social.media === "instagram" && (
+                    <div>
+                      <Icon name="bx:bxl-instagram" class="w-4 h-4" />
+                      <span class="sr-only">Instagram</span>
+                    </div>
+                  )}
+                  {social.media === "facebook" && (
+                    <div>
+                      <Icon name="bx:bxl-facebook" class="w-4 h-4" />
+                      <span class="sr-only">Facebook</span>
+                    </div>
+                  )}
+                  {social.media === "linkedin" && (
+                    <div>
+                      <Icon name="bx:bxl-linkedin" class="w-4 h-4" />
+                      <span class="sr-only">LinkedIn</span>
+                    </div>
+                  )}
+                  {social.media === "twitter" && (
+                    <div>
+                      <Icon name="bx:bxl-twitter" class="w-4 h-4" />
+                      <span class="sr-only">Twitter or X</span>
+                    </div>
+                  )}
+                  {social.media === "youtube" && (
+                    <div>
+                      <Icon name="bx:bxl-youtube" class="w-4 h-4" />
+                      <span class="sr-only">Youtube</span>
+                    </div>
+                  )}
+                </div>
+              </a>
+            ))
+          }
         </div>
       </div>
       <div>
@@ -123,10 +114,10 @@ const footermenu = {
         </div>
       </div>
       <div>
-        <h3 class="font-medium text-sm text-slate-800">Product</h3>
+        <h3 class="font-medium text-sm text-slate-800">Solutions</h3>
         <div class="flex flex-col mt-3">
           {
-            footermenu.product.map((item) => (
+            footermenu.marketingSolutions.map((item) => (
               <a
                 href={item.path || "#"}
                 class="py-2 text-sm text-slate-600 hover:text-indigo-600">
@@ -137,14 +128,15 @@ const footermenu = {
         </div>
       </div>
       <div>
-        <h3 class="font-medium text-sm text-slate-800">Resources</h3>
+        <h3 class="font-medium text-sm text-slate-800">Success Stories</h3>
         <div class="flex flex-col mt-3">
           {
-            footermenu.resources.map((item) => (
+            footermenu.successStories.map((item) => (
               <a
                 href={item.path || "#"}
                 class="py-2 text-sm text-slate-600 hover:text-indigo-600">
-                {item.title}
+                {item.title.slice(0, 1).toUpperCase() +
+                  item.title.slice(1).toLowerCase()}
               </a>
             ))
           }
@@ -156,7 +148,8 @@ const footermenu = {
   <div class="mt-14 pt-8 px-5 border-t border-slate-200">
     <Container>
       <p class="text-center text-sm text-slate-600 [text-wrap:balance]">
-        Copyright © {new Date().getFullYear()} Astroship. All rights reserved.
+        Copyright © {new Date().getFullYear()}
+        {settings?.copyright}
       </p>
       <p class="text-center text-xs text-slate-600 mt-2">
         <a href="/terms" class="hover:text-indigo-500"> Terms</a> ・ <a

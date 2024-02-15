@@ -1,5 +1,7 @@
 ---
 import Button from "./ui/button.astro";
+
+const { w3ckey } = Astro.props;
 ---
 
 <!-- // This is a working contact form //
@@ -12,7 +14,7 @@ import Button from "./ui/button.astro";
   class="needs-validation"
   data-astro-reload
   novalidate>
-  <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+  <input type="hidden" name="access_key" value={w3ckey} />
   <!-- Create your free access key from https://web3forms.com/ -->
   <input type="checkbox" class="hidden" style="display:none" name="botcheck" />
   <div class="mb-5">
@@ -54,6 +56,8 @@ import Button from "./ui/button.astro";
       Please enter your message.
     </div>
   </div>
+  <div class="h-captcha" data-captcha="true"></div>
+
   <Button type="submit" size="lg" block>Send Message</Button>
   <div id="result" class="mt-3 text-center"></div>
 </form>
@@ -79,60 +83,60 @@ import Button from "./ui/button.astro";
 </style>
 
 <script is:inline>
-  // astro:page-load to support view Transitions.
-  // use DOMContentLoaded event if you are not using View Transitions
+// astro:page-load to support view Transitions.
+// use DOMContentLoaded event if you are not using View Transitions
 
-  document.addEventListener(
-    "astro:page-load",
-    () => {
-      const form = document.getElementById("form");
-      const result = document.getElementById("result");
+document.addEventListener(
+  "astro:page-load",
+  () => {
+    const form = document.getElementById("form");
+    const result = document.getElementById("result");
 
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        form.classList.add("was-validated");
-        if (!form.checkValidity()) {
-          form.querySelectorAll(":invalid")[0].focus();
-          return;
-        }
-        const formData = new FormData(form);
-        const object = Object.fromEntries(formData);
-        const json = JSON.stringify(object);
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      form.classList.add("was-validated");
+      if (!form.checkValidity()) {
+        form.querySelectorAll(":invalid")[0].focus();
+        return;
+      }
+      const formData = new FormData(form);
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
 
-        result.innerHTML = "Sending...";
+      result.innerHTML = "Sending...";
 
-        fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: json,
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: json,
+      })
+        .then(async (response) => {
+          let json = await response.json();
+          if (response.status == 200) {
+            result.classList.add("text-green-500");
+            result.innerHTML = json.message;
+          } else {
+            console.log(response);
+            result.classList.add("text-red-500");
+            result.innerHTML = json.message;
+          }
         })
-          .then(async (response) => {
-            let json = await response.json();
-            if (response.status == 200) {
-              result.classList.add("text-green-500");
-              result.innerHTML = json.message;
-            } else {
-              console.log(response);
-              result.classList.add("text-red-500");
-              result.innerHTML = json.message;
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-            result.innerHTML = "Something went wrong!";
-          })
-          .then(function () {
-            form.reset();
-            form.classList.remove("was-validated");
-            setTimeout(() => {
-              result.style.display = "none";
-            }, 5000);
-          });
-      });
-    },
-    { once: true },
-  );
+        .catch((error) => {
+          console.log(error);
+          result.innerHTML = "Something went wrong!";
+        })
+        .then(function () {
+          form.reset();
+          form.classList.remove("was-validated");
+          setTimeout(() => {
+            result.style.display = "none";
+          }, 5000);
+        });
+    });
+  },
+  { once: true },
+);
 </script>

@@ -7,6 +7,15 @@ import Button from "@components/ui/button.astro";
 import Contactform from "@components/contactform.astro";
 import Faq from "@components/faq.astro";
 import Cta from "@components/cta.astro";
+
+import { sanityClient } from "sanity:client";
+
+const contact = await sanityClient.fetch(`*[_type == "settings"] {
+    email,
+    phone,
+    address,
+    w3ckey,
+  }[0]`);
 ---
 
 <Layout title="Contact" footerMargin={false}>
@@ -28,22 +37,34 @@ import Cta from "@components/cta.astro";
           email or call phone.
         </p>
         <div class="mt-5">
-          <div class="flex items-center mt-2 space-x-2 text-gray-600">
-            <Icon class="text-gray-400 w-4 h-4" name="uil:map-marker" />
-            <span>1734 Sanfransico, CA 93063</span>
-          </div><div class="flex items-center mt-2 space-x-2 text-gray-600">
-            <Icon class="text-gray-400 w-4 h-4" name="uil:envelope" />
-            <a href="mailto:hello@astroship-pro.com">
-              hello@astroship-pro.com
-            </a>
-          </div><div class="flex items-center mt-2 space-x-2 text-gray-600">
-            <Icon class="text-gray-400 w-4 h-4" name="uil:phone" />
-            <a href="tel:+1 (987) 4587 899">+1 (987) 4587 899</a>
-          </div>
+          {
+            contact?.address && (
+              <div class="flex items-center mt-2 space-x-2 text-gray-600">
+                <Icon class="text-gray-400 w-4 h-4" name="uil:map-marker" />
+                <span>{contact?.address}</span>
+              </div>
+            )
+          }
+          {
+            contact?.email && (
+              <div class="flex items-center mt-2 space-x-2 text-gray-600">
+                <Icon class="text-gray-400 w-4 h-4" name="uil:envelope" />
+                <a href={`mailto:${contact?.email}`}>{contact?.email}</a>
+              </div>
+            )
+          }
+          {
+            contact?.phone && (
+              <div class="flex items-center mt-2 space-x-2 text-gray-600">
+                <Icon class="text-gray-400 w-4 h-4" name="uil:phone" />
+                <a href={`tel:${contact?.phone}`}>{contact?.phone}</a>
+              </div>
+            )
+          }
         </div>
       </div>
       <div class="bg-slate-100 p-5 md:p-8 rounded-xl mb-5">
-        <Contactform />
+        <Contactform w3ckey={contact?.w3ckey} />
       </div>
     </div>
     <Faq />
