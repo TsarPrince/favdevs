@@ -6,6 +6,18 @@ import { StickyHeader, Astronav, MenuItems, MenuIcon } from "astro-navbar";
 import { Picture } from "astro:assets";
 import logo from "@assets/logo.png";
 
+import { sanityClient } from "sanity:client";
+
+// sorting solutions by asc publishedAt
+// intentionally!
+const marketingSolutions = await sanityClient.fetch(
+  `*[_type == "marketingSolutions"] {
+    slug,
+    title,
+    publishedAt
+  } | order(publishedAt)`,
+);
+
 const menuitems = [
   {
     title: "Home",
@@ -14,24 +26,10 @@ const menuitems = [
   {
     title: "Solutions",
     // path: "/marketing-solutions",
-    children: [
-      {
-        title: "Paid Search Marketing",
-        path: "/marketing-solutions/paid-search-marketing",
-      },
-      {
-        title: "Search Engine Optimization",
-        path: "/marketing-solutions/search-engine-optimization",
-      },
-      {
-        title: "Email Marketing",
-        path: "/marketing-solutions/email-marketing",
-      },
-      {
-        title: "Conversion Rate Optimization",
-        path: "/marketing-solutions/conversion-rate-optimization/",
-      },
-    ],
+    children: marketingSolutions?.map((solution) => ({
+      title: solution.title,
+      path: "/marketing-solutions/" + solution.slug.current,
+    })),
   },
   {
     title: "Who We Are",

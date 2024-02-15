@@ -16,7 +16,7 @@ import { sanityClient } from "sanity:client";
 import urlFor from "@utils/urlFor";
 
 const { id } = Astro.params;
-const solutions = await sanityClient.fetch(
+const solution = await sanityClient.fetch(
   `*[_type == "marketingSolutions" && slug.current == "${id}"] {
     slug,
     title,
@@ -28,10 +28,11 @@ const solutions = await sanityClient.fetch(
         path
       }
     },
-    features
-  }`,
+    features,
+    featuresGrid,
+    faqs
+  }[0]`,
 );
-const solution = solutions?.[0];
 if (!solution) {
   return Astro.redirect("/404");
 }
@@ -48,18 +49,13 @@ if (!solution) {
     }}
   />
   <Container>
-    <Logos />
+    <!-- <Logos /> -->
     <FeatureAlt features={solution.features} />
-    <Features />
+    <Features features={solution.featuresGrid} />
   </Container>
-  <div class="bg-indigo-50/40 pt-4 pb-12 mt-24">
-    <Container>
-      <PricingHeader />
-    </Container>
-  </div>
   <Testimonials />
   <Container>
-    <Faq />
+    <Faq faqs={solution.faqs} />
     <!-- <FeatureGrid /> -->
   </Container>
   <Cta />

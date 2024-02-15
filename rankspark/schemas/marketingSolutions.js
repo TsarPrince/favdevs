@@ -20,6 +20,7 @@ export default {
         maxLength: 96,
       },
     },
+    // header
     {
       name: "header",
       title: "Header",
@@ -57,6 +58,7 @@ export default {
         },
       ],
     },
+    // features
     {
       name: "features",
       title: "Features",
@@ -144,7 +146,94 @@ export default {
         },
       ],
     },
-
+    // featuresGrid
+    {
+      name: "featuresGrid",
+      title: "Features Grid",
+      type: "object",
+      options: {
+        collapsible: true,
+      },
+      fields: [
+        {
+          name: "heading",
+          title: "Heading",
+          type: "string",
+        },
+        {
+          name: "subHeading",
+          title: "Sub Heading",
+          type: "string",
+        },
+        {
+          name: "features",
+          title: "Features",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                {
+                  name: "title",
+                  title: "Title",
+                  type: "string",
+                },
+                {
+                  name: "description",
+                  title: "Description",
+                  type: "string",
+                },
+                {
+                  name: "icon",
+                  title: "Icon",
+                  type: "string",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    // faqs
+    {
+      name: "faqs",
+      title: "FAQs",
+      type: "object",
+      fields: [
+        {
+          name: "heading",
+          title: "Heading",
+          type: "string",
+        },
+        {
+          name: "subHeading",
+          title: "Sub Heading",
+          type: "string",
+        },
+        {
+          name: "faqs",
+          title: "FAQs",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                {
+                  name: "question",
+                  title: "Question",
+                  type: "string",
+                },
+                {
+                  name: "answer",
+                  title: "Answer",
+                  type: "string",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
     {
       name: "publishedAt",
       title: "Published at",

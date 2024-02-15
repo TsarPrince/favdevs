@@ -4,7 +4,10 @@ import Sectionhead from "./sectionhead.astro";
 import { ArrowIcon } from "./ui/icons";
 import { sanityClient } from "sanity:client";
 
-const faqs = await sanityClient.fetch(`*[_type == "faqs"][0]`);
+let { faqs } = Astro.props;
+if (!faqs) {
+  faqs = await sanityClient.fetch(`*[_type == "faqs"][0]`);
+}
 
 // const faq = [
 //   {
@@ -56,7 +59,7 @@ const faqs = await sanityClient.fetch(`*[_type == "faqs"][0]`);
 
   <div class="grid divide-y divide-neutral-200 max-w-xl mx-auto mt-8">
     {
-      faqs.faqs.map((item) => (
+      faqs?.faqs?.map((item) => (
         <div class="py-5">
           <details class="group">
             <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
