@@ -12,16 +12,18 @@ import testimonials from "./testimonials";
 import faqs from "./faqs";
 import cta from "./cta";
 import careers from "./careers";
+import about from "./about";
 
 const schemaTypes = [
   // category,
   settings,
-  landingPage,
   logos,
   pricing,
   testimonials,
   faqs,
   cta,
+  landingPage,
+  about,
   careers,
 
   successStories,

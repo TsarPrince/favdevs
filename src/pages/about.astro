@@ -12,57 +12,90 @@ import Cta from "@components/cta.astro";
 
 import haniel from "@assets/team/haniel.jpg";
 import atul from "@assets/team/atul.jpg";
-const teams = [
-  { name: "Haniel", designation: "CEO & Founder", image: haniel },
-  { name: "Atul", designation: "COO", image: atul },
-];
+
 import about1 from "@assets/about/about1.png";
 import about2 from "@assets/about/about2.png";
 
-const feature = {
-  heading: "Our work is what sets us apart",
-  description:
-    "We work strategically in the world of branding, technology, and design. We facilitate a smooth process across disciplines and services in order to create stunning products.",
-  metrics: [
-    {
-      key: "Successful Projects",
-      value: 25,
-      symbol: "K+",
+import { sanityClient } from "sanity:client";
+import urlFor from "@utils/urlFor";
+
+const page = await sanityClient.fetch(`*[_type == "about"] {
+    header {
+      title,
+      description,
+      image,
+      primaryButton->{ text, path },
+      secondaryButton->{ text, path },
     },
-    {
-      key: "Customer Satisfaction",
-      value: 100,
-      symbol: "%",
-    },
-  ],
-  image: about2,
-};
-const features = [
-  {
-    title: "Collaboration",
-    description:
-      "We believe in teamwork. We work best when we together & we always in cooperation with our customers.",
-    icon: "fluent:document-javascript-24-regular",
-  },
-  {
-    title: "Transparency",
-    description:
-      "We are committed to a culture of total transparency that is sensitive to the needs of our employees.",
-    icon: "fluent:trophy-24-regular",
-  },
-  {
-    title: "Remote friendly",
-    description:
-      "The future of work is hybrid. Naturally, we are happy to accommodate remote clients' projects and teams.",
-    icon: "fluent:box-24-regular",
-  },
-  {
-    title: "Quality products",
-    description:
-      "We always ensure product quality. Due to this the number of repeat users is high and it increases day by day.",
-    icon: "fluent:box-multiple-24-regular",
-  },
-];
+    features {
+      heading,
+      description,
+      image,
+      metrics[],
+      list[],
+      button->{text, path}
+    }[],
+    featuresGrid,
+    team {
+        heading,
+        subHeading,
+        members
+    }
+  }[0]`);
+if (!page) {
+  return Astro.redirect("/404");
+}
+
+const { header, features, featuresGrid, team } = page;
+
+// const teams = [
+//   { name: "Haniel", designation: "CEO & Founder", image: haniel },
+//   { name: "Atul", designation: "COO", image: atul },
+// ];
+// const feature = {
+//   heading: "Our work is what sets us apart",
+//   description:
+//     "We work strategically in the world of branding, technology, and design. We facilitate a smooth process across disciplines and services in order to create stunning products.",
+//   metrics: [
+//     {
+//       key: "Successful Projects",
+//       value: 25,
+//       symbol: "K+",
+//     },
+//     {
+//       key: "Customer Satisfaction",
+//       value: 100,
+//       symbol: "%",
+//     },
+//   ],
+//   image: about2,
+// };
+// const features = [
+//   {
+//     title: "Collaboration",
+//     description:
+//       "We believe in teamwork. We work best when we together & we always in cooperation with our customers.",
+//     icon: "fluent:document-javascript-24-regular",
+//   },
+//   {
+//     title: "Transparency",
+//     description:
+//       "We are committed to a culture of total transparency that is sensitive to the needs of our employees.",
+//     icon: "fluent:trophy-24-regular",
+//   },
+//   {
+//     title: "Remote friendly",
+//     description:
+//       "The future of work is hybrid. Naturally, we are happy to accommodate remote clients' projects and teams.",
+//     icon: "fluent:box-24-regular",
+//   },
+//   {
+//     title: "Quality products",
+//     description:
+//       "We always ensure product quality. Due to this the number of repeat users is high and it increases day by day.",
+//     icon: "fluent:box-multiple-24-regular",
+//   },
+// ];
 ---
 
 <Layout title="About" footerMargin={false}>
@@ -75,34 +108,36 @@ const features = [
         <div
           class="absolute hidden md:block w-44 h-44 bg-purple-100 rounded-full left-10 top-1/4 -z-10">
         </div>
-        <Picture
-          formats={["avif", "webp"]}
-          src={about1}
-          alt="Happy Team"
-          class="rounded-xl w-full max-w-md mx-auto shadow-2xl"
-          loading="lazy"
-        />
+        {
+          header.image && (
+            <img
+              src={urlFor(header?.image).url()}
+              alt={header?.image?.alt}
+              class="rounded-xl w-full max-w-md mx-auto shadow-2xl"
+              loading="lazy"
+            />
+          )
+        }
       </div>
       <div class="place-self-center">
         <h2 class="text-5xl text-gray-800 tracking-tight -mt-2">
-          The story behind our agency start
+          {header?.title}
         </h2>
         <p class="text-lg max-w-xl mt-4 leading-relaxed text-slate-500">
-          Our agency started back in 2002. We are totally obsessed with helping
-          brands scale. All of our partnerships are engagements with brands that
-          we truly believe in from top to bottom. We focus on finding solutions
-          to business problems and use a digital analytical approach to solve
-          the situations that arise.
+          {header?.description}
         </p>
         <div
           class="mt-6 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-3">
-          <Link
-            href="https://web3templates.com/templates/astroship-pro-astro-saas-website-template"
-            target="_blank"
-            class="flex gap-1 items-center justify-center"
-            rel="noopener">
-            Contact Us &rarr;
-          </Link>
+          {
+            header?.primaryButton && (
+              <Link
+                href={header?.primaryButton.path}
+                class="flex gap-1 items-center justify-center"
+                rel="noopener">
+                {header?.primaryButton.text} &rarr;
+              </Link>
+            )
+          }
         </div>
       </div>
     </div>
@@ -110,70 +145,69 @@ const features = [
     <div class="mt-16 border-y py-6 border-slate-100">
       <Logos />
     </div>
-    <div class="mt-24">
-      <div class="grid md:grid-cols-2 py-10">
-        <div class:list={["grid place-items-center mb-2 order-2 relative"]}>
-          <Picture
-            src={feature.image}
-            alt="Feature Image"
-            formats={["avif", "webp"]}
-            height={400}
-            loading="lazy"
-            class="rounded-3xl overflow-hidden shadow-2xl"
-          />
-          <div
-            class="absolute w-96 h-96 blur-2xl -z-10 bg-gradient-radial from-indigo-200 right-0 top-0">
-          </div>
-          <div
-            class="absolute w-96 h-96 blur-2xl -z-10 bg-gradient-radial from-purple-200 right-56 top-10">
-          </div>
-        </div>
 
-        <div class="grid place-items-center">
-          <div class="max-w-lg">
-            <h3 class="text-5xl font-medium mt-4 [text-wrap:balance]">
-              {feature.heading}
-            </h3>
-            <p class="mt-4 text-slate-600 [text-wrap:balance]">
-              {feature.description}
-            </p>
-            {
-              feature.metrics && (
-                <div class="mt-8">
-                  <ul class="flex space-x-4 md:space-x-12">
-                    {feature.metrics.map((metric) => (
-                      <li>
-                        <div class="flex flex-col">
-                          <p class="text-2xl font-medium">
-                            {metric.value}
-                            <span class="text-indigo-600">{metric.symbol}</span>
-                          </p>
-                          <p class="text-slate-600">{metric.key}</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )
-            }
+    <div class="mt-24">
+      {
+        features.map((feature) => (
+          <div class="grid md:grid-cols-2 py-10">
+            <div class:list={["grid place-items-center mb-2 order-2 relative"]}>
+              {feature.image && (
+                <img
+                  src={urlFor(feature.image).url()}
+                  alt={feature.image?.alt}
+                  height={600}
+                  loading="lazy"
+                  class="rounded-3xl overflow-hidden shadow-2xl"
+                />
+              )}
+              <div class="absolute w-96 h-96 blur-2xl -z-10 bg-gradient-radial from-indigo-200 right-0 top-0" />
+              <div class="absolute w-96 h-96 blur-2xl -z-10 bg-gradient-radial from-purple-200 right-56 top-10" />
+            </div>
+
+            <div class="grid place-items-center">
+              <div class="max-w-lg">
+                <h3 class="text-5xl font-medium mt-4 [text-wrap:balance]">
+                  {feature.heading}
+                </h3>
+                <p class="mt-4 text-slate-600 [text-wrap:balance]">
+                  {feature.description}
+                </p>
+                {feature.metrics && (
+                  <div class="mt-8">
+                    <ul class="flex space-x-4 md:space-x-12">
+                      {feature.metrics.map((metric) => (
+                        <li>
+                          <div class="flex flex-col">
+                            <p class="text-2xl font-medium">
+                              {metric.value}
+                              <span class="text-indigo-600">
+                                {metric.symbol}
+                              </span>
+                            </p>
+                            <p class="text-slate-600">{metric.key}</p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        ))
+      }
     </div>
 
     <div
       class="mt-24 max-w-3xl mx-auto flex flex-col items-center justify-center">
-      <!-- <Badge color="purple">MORE FEATURES</Badge> -->
       <h2 class="text-4xl lg:text-5xl lg:tracking-tight mt-4 text-center">
-        The core values behind our work
+        {featuresGrid?.heading}
       </h2>
-      <p class="text-lg mt-4 text-slate-600 text-center [text-wrap:pretty]">
-        <!-- desc -->
-      </p>
+      <p class="text-lg mt-4 text-slate-600 text-center [text-wrap:pretty]"></p>
     </div>
     <div class="grid sm:grid-cols-2 md:grid-cols-4 mt-16 gap-8 md:gap-16">
       {
-        features.map((item) => (
+        featuresGrid?.features.map((item) => (
           <div class="flex flex-col gap-4 items-start group hover:bg-slate-50 hover:border-slate-100 border rounded-lg transition-all md:-m-5 p-5">
             <div class="mt-1 bg-indigo-50 border shadow shadow-indigo-100/50 border-indigo-100 transition-colors rounded-lg grid place-items-center  p-2 w-10 h-10 shrink-0">
               <Icon class="text-indigo-500" name={item.icon} size="24" />
@@ -191,32 +225,34 @@ const features = [
 
     <div class="mt-24 scroll-mt-28" id="team">
       <h2 class="text-4xl lg:text-5xl lg:tracking-tight text-center">
-        A great team of industry experts
+        {team.heading}
       </h2>
       <p class="text-lg mt-4 text-slate-600 text-center">
-        Flowto is built by these awesome individuals.
+        {team.subHeading}
       </p>
     </div>
 
     <div class="grid md:grid-cols-2 gap-10 mx-auto mt-12">
       {
-        teams.map((member) => (
+        team.members.map((member) => (
           <div class="group">
             <div class="w-full aspect-square">
-              <Picture
-                src={member.image}
-                alt={member.name || "Team Member"}
-                loading="lazy"
-                width={400}
-                height={400}
-                formats={["avif", "webp"]}
-                class="w-full h-full object-cover bg-white transition rounded-3xl md:rounded-[3rem] group-hover:-translate-y-1 group-hover:shadow-xl"
-              />
+              {member.image && (
+                <Picture
+                  src={urlFor(member.image).url()}
+                  alt={member.image.alt || "Team Member"}
+                  loading="lazy"
+                  width={400}
+                  height={400}
+                  formats={["avif", "webp"]}
+                  class="w-full h-full object-cover bg-white transition rounded-3xl md:rounded-[3rem] group-hover:-translate-y-1 group-hover:shadow-xl"
+                />
+              )}
             </div>
 
             <div class="mt-4 text-center">
               <h2 class="text-lg text-gray-800">{member.name}</h2>
-              <h3 class="text-sm text-slate-500">{member.designation}</h3>
+              <h3 class="text-sm text-slate-500">{member.role}</h3>
             </div>
           </div>
         ))
