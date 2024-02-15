@@ -26,12 +26,12 @@ export default defineConfig({
     structureTool({
       structure: pageStructure([
         settings,
-        landingPage,
         logos,
         pricing,
         testimonials,
         faqs,
         cta,
+        landingPage,
         careers,
         about,
       ]),
