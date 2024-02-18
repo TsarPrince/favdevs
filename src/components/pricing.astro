@@ -83,9 +83,13 @@ const { plan } = Astro.props;
 <script>
   import { loadStripe } from "@stripe/stripe-js";
   const STRIPE_PUBLISHABLE_KEY = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY;
-  console.log({ STRIPE_PUBLISHABLE_KEY });
 
   const stripe = await loadStripe(STRIPE_PUBLISHABLE_KEY);
+
+  if (!stripe) {
+    console.log("Error initializing Stripe");
+    return;
+  }
 
   const checkoutBtns =
     document.querySelectorAll<HTMLButtonElement>(".stripe-checkout");
@@ -104,6 +108,7 @@ const { plan } = Astro.props;
 
         const { session } = await response.json();
         console.log(session);
+
         // When the customer clicks on the button, redirect them to Checkout.
         const result = await stripe.redirectToCheckout({
           sessionId: session.id,
