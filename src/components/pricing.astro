@@ -2,7 +2,6 @@
 // @ts-ignore
 import { Icon } from "astro-icon/components";
 import Link from "@components/ui/link.astro";
-
 const { plan } = Astro.props;
 ---
 
@@ -31,7 +30,10 @@ const { plan } = Astro.props;
             <span class="flex items-baseline">
               <span class=""> $</span>
               <span class="font-bold text-2xl  md:text-4xl"> {plan.price}</span>
-              <span class="ml-1 text-neutral-600"> /month</span>
+              <span class="ml-1 text-neutral-600">
+                {" "}
+                /{plan.cycle == "monthly" ? "month" : "year"}
+              </span>
             </span>
           ) : (
             <span class="font-bold text-2xl  md:text-4xl"> Custom</span>
@@ -51,12 +53,69 @@ const { plan } = Astro.props;
         ))
       }
     </ul><div class="flex mt-8">
-      <Link
-        href={plan.button.path || "#"}
-        block
-        style={plan.popular ? "primary" : "outline"}>
-        {plan.button.text || "Get Started"}
-      </Link>
+      {
+        plan.cycle == "custom" ? (
+          <Link
+            href={"/contact"}
+            block
+            style={plan.popular ? "primary" : "outline"}>
+            Contact Us
+          </Link>
+        ) : (
+          <button
+            class:list={[
+              "stripe-checkout",
+              "px-7 py-2.5 w-full rounded-full text-center transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-none focus-visible:shadow-outline-indigo",
+              plan.popular
+                ? "bg-indigo-600 text-white hover:bg-indigo-800"
+                : "bg-white border-2 border-indigo-500 hover:bg-indigo-50 text-indigo-600",
+            ]}
+            data-price-id={plan.priceId}>
+            Get Started
+          </button>
+        )
+      }
     </div>
   </div>
 </div>
+
+<script src="https://js.stripe.com/v3/" async></script>
+<script>
+  import { loadStripe } from "@stripe/stripe-js";
+  const STRIPE_PUBLISHABLE_KEY = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY;
+  console.log({ STRIPE_PUBLISHABLE_KEY });
+
+  const stripe = await loadStripe(STRIPE_PUBLISHABLE_KEY);
+
+  const checkoutBtns =
+    document.querySelectorAll<HTMLButtonElement>(".stripe-checkout");
+
+  checkoutBtns?.forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const priceId = btn.dataset.priceId;
+      if (priceId) {
+        console.log({ priceId });
+        const response = await fetch(`/checkout/${priceId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const { session } = await response.json();
+        console.log(session);
+        // When the customer clicks on the button, redirect them to Checkout.
+        const result = await stripe.redirectToCheckout({
+          sessionId: session.id,
+        });
+        console.log(result);
+
+        if (result.error) {
+          // If `redirectToCheckout` fails due to a browser or network
+          // error, display the localized error message to your customer
+          alert(result.error.message);
+        }
+      }
+    });
+  });
+</script>

@@ -3,7 +3,7 @@ import { defineType } from "sanity";
 
 export default defineType({
   name: "landingPage",
-  title: "Landing Page",
+  title: "Home Page",
   type: "document",
   icon: DesktopIcon,
   fields: [

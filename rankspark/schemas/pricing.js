@@ -36,6 +36,25 @@ export default defineType({
               type: "string",
             },
             {
+              name: "priceId",
+              title: "Price ID",
+              description:
+                "Create product in Stripe and enter it's price ID here, for eg: price_1Okm2KSE7yoY9qakAsOAtZrh",
+              type: "string",
+            },
+            {
+              name: "cycle",
+              title: "Billing Cycle",
+              type: "string",
+              options: {
+                list: [
+                  { title: "Monthly", value: "monthly" },
+                  { title: "Yearly", value: "yearly" },
+                  { title: "Custom", value: "custom" },
+                ],
+              },
+            },
+            {
               name: "popular",
               title: "Popular",
               type: "boolean",
@@ -51,13 +70,14 @@ export default defineType({
               type: "array",
               of: [{ type: "string" }],
             },
-            {
-              name: "button",
-              title: "Button",
-              type: "reference",
-              to: [{ type: "button" }],
-            },
           ],
+          // show both title and cylce in preview
+          preview: {
+            select: {
+              title: "name",
+              subtitle: "cycle",
+            },
+          },
         },
       ],
     },
