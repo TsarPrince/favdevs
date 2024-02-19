@@ -175,5 +175,15 @@ export default defineType({
       description: "Image for sharing previews on Facebook, Twitter etc.",
       fieldset: "metadata",
     }),
+    defineField({
+      name: "tnc",
+      title: "Terms & Conditions",
+      type: "blockContent",
+    }),
+    defineField({
+      name: "privacyPolicy",
+      title: "Privacy Policy",
+      type: "blockContent",
+    }),
   ],
 });

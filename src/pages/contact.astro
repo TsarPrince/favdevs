@@ -29,7 +29,7 @@ const contact = await sanityClient.fetch(`*[_type == "settings"] {
       </Fragment>
     </Sectionhead>
 
-    <div class="grid md:grid-cols-2 gap-10 mx-auto max-w-4xl mt-16">
+    <div class="grid md:grid-cols-2 gap-10 mx-auto max-w-6xl mt-16">
       <div>
         <h2 class="font-medium text-2xl text-gray-800">Contact Info</h2>
         <p class="text-lg leading-relaxed text-slate-500 mt-3">
@@ -47,17 +47,21 @@ const contact = await sanityClient.fetch(`*[_type == "settings"] {
           }
           {
             contact?.email && (
-              <div class="flex items-center mt-2 space-x-2 text-gray-600">
+              <div class="flex items-center mt-2 space-x-2 text-blue-700">
                 <Icon class="text-gray-400 w-4 h-4" name="uil:envelope" />
-                <a href={`mailto:${contact?.email}`}>{contact?.email}</a>
+                <a class="hover:underline" href={`mailto:${contact?.email}`}>
+                  {contact?.email}
+                </a>
               </div>
             )
           }
           {
             contact?.phone && (
-              <div class="flex items-center mt-2 space-x-2 text-gray-600">
+              <div class="flex items-center mt-2 space-x-2 text-blue-700">
                 <Icon class="text-gray-400 w-4 h-4" name="uil:phone" />
-                <a href={`tel:${contact?.phone}`}>{contact?.phone}</a>
+                <a class="hover:underline" href={`tel:${contact?.phone}`}>
+                  {contact?.phone}
+                </a>
               </div>
             )
           }
@@ -67,7 +71,7 @@ const contact = await sanityClient.fetch(`*[_type == "settings"] {
         <Contactform w3ckey={contact?.w3ckey} />
       </div>
     </div>
-    <Faq />
+    <!-- <Faq /> -->
   </Container>
   <Cta />
 </Layout>

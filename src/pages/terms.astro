@@ -1,0 +1,22 @@
+---
+import Container from "@components/container.astro";
+import Cta from "@components/cta.astro";
+import Logos from "@components/logos.astro";
+import Testimonials from "@components/testimonials.astro";
+import Layout from "@layouts/Layout.astro";
+import Hero from "@components/hero.astro";
+import PortableText from "@components/portableText/index.astro";
+import urlFor from "@utils/urlFor";
+import { sanityClient } from "sanity:client";
+
+const { id } = Astro.params;
+const data = await sanityClient.fetch(`*[_type == "settings"] {
+  tnc
+}[0]`);
+---
+
+<Layout footerMargin={false}>
+  <div class="py-16">
+    <PortableText value={data?.tnc} />
+  </div>
+</Layout>

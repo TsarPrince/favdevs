@@ -17,18 +17,33 @@ const { w3ckey } = Astro.props;
   <input type="hidden" name="access_key" value={w3ckey} />
   <!-- Create your free access key from https://web3forms.com/ -->
   <input type="checkbox" class="hidden" style="display:none" name="botcheck" />
-  <div class="mb-5">
-    <input
-      type="text"
-      placeholder="Full Name"
-      required
-      class="w-full px-4 py-3 border placeholder:text-slate-400 rounded-md outline-none focus:!ring-4 border-slate-300 focus:border-slate-400 !ring-slate-300"
-      name="name"
-    />
-    <div class="empty-feedback invalid-feedback text-red-400 text-sm mt-1">
-      Please provide your full name.
+  <div class="flex space-x-4">
+    <div class="flex-1 mb-5">
+      <input
+        type="text"
+        placeholder="First Name"
+        required
+        class="w-full px-4 py-3 border placeholder:text-slate-400 rounded-md outline-none focus:!ring-4 border-slate-300 focus:border-slate-400 !ring-slate-300"
+        name="firstName"
+      />
+      <div class="empty-feedback invalid-feedback text-red-400 text-sm mt-1">
+        Please provide your first name.
+      </div>
+    </div>
+    <div class="flex-1 mb-5">
+      <input
+        type="text"
+        placeholder="Last Name"
+        required
+        class="w-full px-4 py-3 border placeholder:text-slate-400 rounded-md outline-none focus:!ring-4 border-slate-300 focus:border-slate-400 !ring-slate-300"
+        name="lastName"
+      />
+      <div class="empty-feedback invalid-feedback text-red-400 text-sm mt-1">
+        Please provide your last name.
+      </div>
     </div>
   </div>
+
   <div class="mb-5">
     <label for="email_address" class="sr-only">Email Address</label><input
       id="email_address"
@@ -43,6 +58,46 @@ const { w3ckey } = Astro.props;
     </div>
     <div class="invalid-feedback text-red-400 text-sm mt-1">
       Please provide a valid email address.
+    </div>
+  </div>
+  <div class="mb-5">
+    <input
+      type="tel"
+      placeholder="Phone"
+      required
+      class="w-full px-4 py-3 border placeholder:text-slate-400 rounded-md outline-none focus:!ring-4 border-slate-300 focus:border-slate-400 !ring-slate-300"
+      name="phone"
+    />
+    <div class="empty-feedback invalid-feedback text-red-400 text-sm mt-1">
+      Please provide your Phone.
+    </div>
+  </div>
+  <div class="mb-5">
+    <p class="text-md text-slate-700 font-medium">Which describes you?</p>
+    <div class="mt-2">
+      {
+        [
+          "I am looking for agency services",
+          "I am an agency looking for a white label partner",
+          "I am a current RankSpark / Creative Labs customer",
+          "Other",
+        ].map((option) => (
+          <label class="flex items-center">
+            <input
+              type="radio"
+              placeholder="description"
+              required
+              value={option}
+              name="description"
+            />
+            <p class="ml-2 text-slate-700">{option}</p>
+          </label>
+        ))
+      }
+    </div>
+
+    <div class="empty-feedback invalid-feedback text-red-400 text-sm mt-1">
+      Please select an option.
     </div>
   </div>
   <div class="mb-3">

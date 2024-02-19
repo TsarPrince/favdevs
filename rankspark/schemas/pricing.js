@@ -81,5 +81,51 @@ export default defineType({
         },
       ],
     },
+    {
+      name: "comparePlans",
+      title: "Compare Plans",
+      type: "object",
+      fields: [
+        {
+          name: "features",
+          title: "Features",
+          type: "array",
+          of: [{ type: "string" }],
+        },
+        {
+          name: "plans",
+          title: "Plans",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                {
+                  name: "name",
+                  title: "Name",
+                  type: "string",
+                },
+                {
+                  name: "price",
+                  title: "Price",
+                  type: "string",
+                },
+                {
+                  name: "popular",
+                  title: "Popular",
+                  type: "boolean",
+                },
+                {
+                  name: "values",
+                  title: "Values",
+                  type: "array",
+                  of: [{ type: "string" }],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
   ],
 });
