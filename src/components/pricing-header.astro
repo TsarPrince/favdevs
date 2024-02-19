@@ -18,79 +18,6 @@ const pricing = await sanityClient.fetch(`*[_type == "pricing"]{
   }
 }[0]`);
 // console.log(JSON.stringify(pricing, null, 2));
-
-const cycle = Astro.url.searchParams.get("cycle")!;
-if (cycle == "yearly") {
-  pricing.plans = pricing.plans.filter(
-    (plan) => plan.cycle == "yearly" || plan.cycle == "custom",
-  );
-}
-// default cycle is monthly
-else {
-  pricing.plans = pricing.plans.filter(
-    (plan) => plan.cycle == "monthly" || plan.cycle == "custom",
-  );
-}
-
-// const pricing = [
-//   {
-//     name: "Local SEO",
-//     price: "49",
-//     desc: "SEO Package designed for small business with a single niche service provider.",
-//     color: "indigo",
-//     popular: false,
-//     features: [
-//       "Lifetime free",
-//       "Up to 3 users",
-//       "Unlimited Pages",
-//       "Astro Sub domain",
-//       "Basic Integrations",
-//       "Community Support",
-//     ],
-//     button: {
-//       text: "Get Started",
-//       link: "/",
-//     },
-//   },
-//   {
-//     name: "National SEO",
-//     price: "149",
-//     desc: "SEO Package designed for small business with a single niche service provider.",
-//     popular: true,
-//     color: "orange",
-//     features: [
-//       "All Free Features",
-//       "Up to 20 users",
-//       "20 Custom domains",
-//       "Unlimited Collaborators",
-//       "Advanced Integrations",
-//       "Priority Support",
-//     ],
-//     button: {
-//       text: "Get Started",
-//       link: "#",
-//     },
-//   },
-//   {
-//     name: "E-commerce SEO",
-//     price: null,
-//     desc: "SEO Package designed for small business with a single niche service provider.",
-//     popular: false,
-//     color: "purple",
-//     features: [
-//       "All Pro Features",
-//       "Unlimited Custom domains",
-//       "99.99% Uptime SLA",
-//       "SAML & SSO Integration",
-//       "Dedicated Account Manager",
-//       "24/7 Phone Support",
-//     ],
-//     button: {
-//       text: "Contact us",
-//       link: "/contact",
-//     },
-//   },
-// ];
 ---
 
 <Sectionhead>
@@ -100,43 +27,64 @@ else {
   </Fragment>
 </Sectionhead>
 
-<div
-  class="mt-12 flex justify-center text-lg text-slate-400 space-x-4 font-semibold">
+<div class="mt-12 flex justify-center text-lg text-slate-600 space-x-4">
   <div>
-    <p class={cycle != "yearly" ? "text-slate-700" : ""}>Billed Monthly</p>
+    <p>Billed Monthly</p>
   </div>
 
   <!-- switch -->
-  <a href=`/pricing?cycle=${cycle == 'yearly' ? 'monthly' : 'yearly'}`>
-    <button
-      id="toggle-billing-cycle"
-      class="pointer-events-auto h-6 w-10 rounded-full p-1 ring-1 ring-inset transition duration-200 ease-in-out bg-indigo-600 ring-black/20">
-      <div
-        class:list={[
-          "h-4 w-4 rounded-full bg-white shadow-sm ring-1 ring-slate-700/10 transition duration-200 ease-in-out",
-          cycle == "yearly" ? "translate-x-4" : "",
-        ]}>
-      </div>
-    </button>
-  </a>
+  <button
+    id="toggle-billing-cycle"
+    class="pointer-events-auto h-6 w-10 rounded-full p-1 ring-1 ring-inset transition duration-200 ease-in-out bg-indigo-600 ring-black/20 disabled:opacity-80">
+    <div
+      class:list={[
+        "h-4 w-4 rounded-full bg-white shadow-sm ring-1 ring-slate-700/10 transition duration-200 ease-in-out",
+      ]}>
+    </div>
+  </button>
 
   <div>
-    <p class={cycle == "yearly" ? "text-slate-700" : ""}>Billed Anually</p>
+    <p>Billed Anually</p>
   </div>
 </div>
 
-<div class="grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12">
-  {pricing.plans.map((item) => <Pricing plan={item} />)}
+<div
+  class:list={[
+    "monthly-default hidden grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12 ",
+  ]}>
+  {
+    pricing.plans
+      .filter((plan) => plan.cycle == "yearly" || plan.cycle == "custom")
+      .map((item) => <Pricing plan={item} />)
+  }
+</div>
+<div
+  class:list={[
+    "monthly-default grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12",
+  ]}>
+  {
+    pricing.plans
+      .filter((plan) => plan.cycle == "monthly" || plan.cycle == "custom")
+      .map((item) => <Pricing plan={item} />)
+  }
 </div>
 
 <script>
   // view transition to smoothly translate the toggle
   document.addEventListener("astro:page-load", () => {
-    const button = document.querySelector("#toggle-billing-cycle");
+    const button = document.querySelector<HTMLButtonElement>(
+      "#toggle-billing-cycle",
+    );
     if (button) {
+      // switch toggle
       const toggle = button.querySelector("div");
       button.addEventListener("click", () => {
         toggle?.classList.toggle("translate-x-4");
+
+        // toggle all hidden classNames
+        document
+          .querySelectorAll(".monthly-default")
+          ?.forEach((item) => item.classList.toggle("hidden"));
       });
     }
   });

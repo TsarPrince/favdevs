@@ -65,13 +65,34 @@ const { plan } = Astro.props;
           <button
             class:list={[
               "stripe-checkout",
-              "px-7 py-2.5 w-full rounded-full text-center transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-none focus-visible:shadow-outline-indigo",
+              "flex justify-center items-center disabled:opacity-80 px-7 py-2.5 w-full rounded-full text-center transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-none focus-visible:shadow-outline-indigo",
               plan.popular
                 ? "bg-indigo-600 text-white hover:bg-indigo-800"
                 : "bg-white border-2 border-indigo-500 hover:bg-indigo-50 text-indigo-600",
             ]}
             data-price-id={plan.priceId}>
-            Get Started
+            <svg
+              class:list={[
+                "motion-reduce:hidden animate-spin -ml-1 mr-3 h-5 w-5 py-1 hidden",
+                plan.popular ? "text-white" : "text-indigo-700",
+              ]}
+              fill="none"
+              viewBox="0 0 24 24">
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              />
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              />
+            </svg>
+            <span>Get Started</span>
           </button>
         )
       }
@@ -80,20 +101,21 @@ const { plan } = Astro.props;
 </div>
 
 <script>
-  import { loadStripe } from "@stripe/stripe-js";
-  const STRIPE_PUBLISHABLE_KEY = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY;
+  import getStripe from "@lib/stripe";
+  const stripe = await getStripe();
 
-  const stripe = await loadStripe(STRIPE_PUBLISHABLE_KEY);
-
-  if (!stripe) {
-    console.log("Error initializing Stripe");
-    // Top-level return cannot be used inside an ECMAScript module
-  } else {
+  if (stripe) {
     const checkoutBtns =
       document.querySelectorAll<HTMLButtonElement>(".stripe-checkout");
 
     checkoutBtns?.forEach((btn) => {
       btn.addEventListener("click", async () => {
+        // disable button
+        btn.disabled = true;
+        btn.querySelector("span")?.classList.toggle("hidden");
+        btn.querySelector("svg")?.classList.toggle("hidden");
+
+        // send request to server for redirect url
         const priceId = btn.dataset.priceId;
         if (priceId) {
           console.log({ priceId });
@@ -121,5 +143,7 @@ const { plan } = Astro.props;
         }
       });
     });
+  } else {
+    console.log("Error loading Stripe");
   }
 </script>
