@@ -57,10 +57,11 @@ if (!faqs) {
     </Fragment>
   </Sectionhead>
 
-  <div class="grid divide-y divide-neutral-200 max-w-xl mx-auto mt-8">
+  <div
+    class="grid md:grid-cols-2 gap-x-12 divide-neutral-200 max-w-4xl mx-auto mt-8">
     {
       faqs?.faqs?.map((item) => (
-        <div class="py-5">
+        <div class="py-5 border-b">
           <details class="group">
             <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
               <span> {item.question}</span>

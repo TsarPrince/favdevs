@@ -73,7 +73,7 @@ const { plan } = Astro.props;
             data-price-id={plan.priceId}>
             <svg
               class:list={[
-                "motion-reduce:hidden animate-spin -ml-1 mr-3 h-5 w-5 py-1 hidden",
+                "motion-reduce:hidden animate-spin -ml-1 mr-3 h-5 w-5 my-[2px] hidden",
                 plan.popular ? "text-white" : "text-indigo-700",
               ]}
               fill="none"
@@ -92,7 +92,7 @@ const { plan } = Astro.props;
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               />
             </svg>
-            <span>Get Started</span>
+            <span class="">Get Started</span>
           </button>
         )
       }

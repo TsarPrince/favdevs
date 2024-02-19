@@ -10,7 +10,8 @@
       "@layouts/*": ["layouts/*"],
       "@assets/*": ["assets/*"],
       "@pages/*": ["pages/*"],
-      "@types/*": ["types/*"]
+      "@types/*": ["types/*"],
+      "@styles/*": ["styles/*"]
     }
   }
 }

@@ -50,7 +50,7 @@ const pricing = await sanityClient.fetch(`*[_type == "pricing"]{
 
 <div
   class:list={[
-    "monthly-default hidden grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12 ",
+    "monthly-default hidden grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12 items-center",
   ]}>
   {
     pricing.plans
@@ -60,7 +60,7 @@ const pricing = await sanityClient.fetch(`*[_type == "pricing"]{
 </div>
 <div
   class:list={[
-    "monthly-default grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12",
+    "monthly-default grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12 items-center",
   ]}>
   {
     pricing.plans

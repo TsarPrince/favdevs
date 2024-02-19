@@ -9,6 +9,8 @@ import Logos from "@components/logos.astro";
 import PricingHeader from "@components/pricing-header.astro";
 import Testimonials from "@components/testimonials.astro";
 import Layout from "@layouts/Layout.astro";
+import RanksparkHero from "@components/rankspark-hero.astro";
+
 import groq from "groq";
 import { sanityClient } from "sanity:client";
 
@@ -38,12 +40,15 @@ if (!landingPage) {
 ---
 
 <Layout footerMargin={false}>
-  <Hero header={landingPage.header} />
-  <Container>
-    <Logos />
-    <FeatureAlt features={landingPage.features} />
-    <Features features={landingPage.featuresGrid} />
-  </Container>
+  <RanksparkHero />
+  <!-- <Hero header={landingPage.header} /> -->
+  <div class="mt-24">
+    <Container>
+      <Logos />
+      <FeatureAlt features={landingPage.features} />
+      <Features features={landingPage.featuresGrid} />
+    </Container>
+  </div>
   <div class="bg-indigo-50/40 pt-4 pb-12 mt-24">
     <Container>
       <PricingHeader />
