@@ -27,32 +27,33 @@ export default defineType({
           type: "string",
         },
         {
-          name: "image",
-          title: "Image",
-          type: "image",
+          name: "cta",
+          title: "CTA",
+          type: "object",
           fields: [
             {
-              name: "alt",
+              name: "title",
+              title: "Title",
               type: "string",
-              title: "Alternative text",
-              description: "Important for SEO and accessiblity.",
+            },
+            {
+              name: "button",
+              title: "Button",
+              type: "reference",
+              to: [{ type: "button" }],
             },
           ],
-          options: {
-            hotspot: true,
-          },
-        },
-        {
-          name: "primaryButton",
-          title: "Primary Button",
-          type: "reference",
-          to: [{ type: "button" }],
         },
         {
           name: "secondaryButton",
           title: "Secondary Button",
           type: "reference",
           to: [{ type: "button" }],
+        },
+        {
+          name: "revenue",
+          title: "Revenue",
+          type: "number",
         },
       ],
     },

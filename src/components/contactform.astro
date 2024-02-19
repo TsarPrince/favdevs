@@ -72,9 +72,9 @@ const { w3ckey } = Astro.props;
       Please provide your Phone.
     </div>
   </div>
-  <div class="mb-5">
-    <p class="text-md text-slate-700 font-medium">Which describes you?</p>
-    <div class="mt-2">
+  <div class="mb-5 bg-white px-4 py-3 border border-slate-300 rounded-md">
+    <p class="text-md text-slate-400 font-medium">Which describes you?</p>
+    <div class="mt-4 space-y-1">
       {
         [
           "I am looking for agency services",
@@ -90,7 +90,7 @@ const { w3ckey } = Astro.props;
               value={option}
               name="description"
             />
-            <p class="ml-2 text-slate-700">{option}</p>
+            <p class="ml-4 text-slate-700">{option}</p>
           </label>
         ))
       }

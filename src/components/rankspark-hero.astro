@@ -6,6 +6,9 @@ import expert1 from "@assets/hero/expert1.webp";
 import expert2 from "@assets/hero/expert2.webp";
 import expert3 from "@assets/hero/expert3.webp";
 import Link from "./ui/link.astro";
+
+const { header } = Astro.props;
+import { formatNumber } from "@utils/all";
 ---
 
 <div class="max-w-sm md:max-w-max mx-auto overflow-hidden px-[20px]">
@@ -13,11 +16,10 @@ import Link from "./ui/link.astro";
   <div class="mx-auto md:mt-12 flex flex-col justify-center items-center">
     <h1
       class="mt-4 text-3xl lg:text-4xl xl:text-6xl font-bold [text-wrap:balance] text-center lg:text-start">
-      Marketing without borders
+      {header?.title}
     </h1>
     <p class="text-lg mt-4 text-slate-600 [text-wrap:balance] text-center">
-      Amplify your business with our data-centric, performance-driven digital
-      marketing solutions.
+      {header?.description}
     </p>
   </div>
 
@@ -87,12 +89,12 @@ import Link from "./ui/link.astro";
       <!-- Yellow CTA -->
       <div
         class="absolute bottom-0 right-[550px] h-[180px] w-[380px] bg-[#ffbe11] rounded-[3rem] overflow-hidden flex items-center justify-center space-x-4 px-8">
-        <p class="text-lg">Get Your Free Audit Today</p>
+        <p class="text-lg">{header?.cta.title}</p>
         <Link
-          href="/signup"
+          href={header?.cta.button?.path}
           size="lg"
           class="inline-flex items-center group gap-px !bg-black hover:!bg-black/80 flex-shrink-0">
-          <span>Get Started</span>
+          <span>{header?.cta.button?.text}</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -175,10 +177,10 @@ import Link from "./ui/link.astro";
       class="-mt-14 py-8 px-4 bg-[#ffbe11] rounded-3xl overflow-hidden flex flex-col items-center justify-center space-y-4">
       <p class="text-lg max-w-[8rem] text-center">Get Your Free Audit Today</p>
       <Link
-        href="/signup"
+        href={header?.cta.button?.path}
         size="lg"
         class="inline-flex items-center group gap-px !bg-black hover:!bg-black/80 flex-shrink-0">
-        <span>Get Started</span>
+        <span>{header?.cta.button?.text}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
@@ -210,10 +212,12 @@ import Link from "./ui/link.astro";
           }
         </div>
 
-        <a href="/contact" class="text-lg ml-4">Connect our experts &rarr;</a>
+        <a href={header?.secondaryButton?.path} class="text-lg ml-4"
+          >{header?.secondaryButton?.text}</a
+        >
       </div>
       <div class="flex flex-col md:flex-row items-center space-x-4">
-        <h2 class="text-3xl font-semibold">2,120,240,368</h2>
+        <h2 class="text-3xl font-semibold">{formatNumber(header?.revenue)}</h2>
         <p class="text-md max-w-[8rem]">Revenue driven for our clients</p>
       </div>
       <div class="text-center">

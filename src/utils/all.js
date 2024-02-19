@@ -15,3 +15,8 @@ export const cx = (...classNames) => classNames.filter(Boolean).join(" ");
 export const myLoader = ({ src }) => {
   return src;
 };
+
+export const formatNumber = (number) => {
+  // format number
+  return new Intl.NumberFormat("en-US").format(number);
+};

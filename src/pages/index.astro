@@ -18,9 +18,11 @@ const query = groq`*[_type == "landingPage"] {
     header {
       title,
       description,
-      image,
-      primaryButton->{ text, path },
+      cta { title, button->{
+        text,path
+      } },
       secondaryButton->{ text, path },
+      revenue
     },
     features {
       heading,
@@ -34,13 +36,15 @@ const query = groq`*[_type == "landingPage"] {
   }[0]`;
 
 const landingPage = await sanityClient.fetch(query);
+
+// console.log(landingPage);
 if (!landingPage) {
   return Astro.redirect("/404");
 }
 ---
 
 <Layout footerMargin={false}>
-  <RanksparkHero />
+  <RanksparkHero header={landingPage.header} />
   <!-- <Hero header={landingPage.header} /> -->
   <div class="mt-24">
     <Container>
