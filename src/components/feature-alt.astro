@@ -31,8 +31,10 @@ interface Props {
       path: string;
     };
   }[];
+  objectFit?: "object-cover" | "object-contain";
 }
-const { features } = Astro.props;
+
+const { features, objectFit } = Astro.props;
 
 // const features = [
 //   {
@@ -95,7 +97,10 @@ const { features } = Astro.props;
             src={urlFor(feature?.image).url()}
             alt={feature.image?.alt}
             loading="lazy"
-            class="md:h-[28rem] max-w-xs md:max-w-lg w-auto object-cover rounded-3xl md:rounded-[3rem]"
+            class:list={[
+              "md:h-[24rem] max-w-xs md:max-w-lg w-auto rounded-3xl md:rounded-[3rem]",
+              objectFit ? objectFit : "object-cover md:h-[28rem]",
+            ]}
           />
         </div>
 

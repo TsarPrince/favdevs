@@ -49,7 +49,10 @@ if (!landingPage) {
   <div class="mt-24">
     <Container>
       <Features features={landingPage.featuresGrid} />
-      <FeatureAlt features={landingPage.features} />
+      <FeatureAlt
+        features={landingPage.features}
+        objectFit={"object-contain"}
+      />
       <Logos />
     </Container>
   </div>
